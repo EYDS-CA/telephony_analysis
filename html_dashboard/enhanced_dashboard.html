@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telecom App Analytics | Strategic Insights Dashboard</title>
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist@2.26.0/plotly.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-blue: #0066cc;
+            --primary-red: #e50000;
+            --dark-gray: #333333;
+            --medium-gray: #666666;
+            --light-gray: #f5f5f5;
+            --white: #ffffff;
+            --success-green: #00b050;
+            --warning-orange: #ff9500;
+            --border-color: #e0e0e0;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--light-gray);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #004499 100%);
+            color: var(--white);
+            padding: 2.5rem 2rem;
+            box-shadow: 0 4px 6px var(--shadow);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 0.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px var(--shadow);
+            gap: 0.5rem;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            text-align: center;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--medium-gray);
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab.active {
+            background: var(--primary-blue);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .nav-tab:hover:not(.active) {
+            background: var(--light-gray);
+        }
+
+        /* Simplified Filters */
+        .filters {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            align-items: end;
+        }
+
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-item label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+
+        .filter-item select {
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: var(--white);
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter-item select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+
+        .filter-status {
+            font-size: 0.85rem;
+            color: var(--medium-gray);
+            font-style: italic;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-gray);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-icon {
+            color: var(--primary-blue);
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Strategic Insights Specific Styles */
+        .insight-section {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .provider-card {
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+        }
+
+        .rogers-card {
+            border-color: var(--primary-red);
+            background: rgba(229, 0, 0, 0.02);
+        }
+
+        .bell-card {
+            border-color: var(--primary-blue);
+            background: rgba(0, 102, 204, 0.02);
+        }
+
+        .provider-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rogers-title { color: var(--primary-red); }
+        .bell-title { color: var(--primary-blue); }
+
+        /* Issue List */
+        .issue-list {
+            margin-top: 1rem;
+        }
+
+        .issue-item {
+            padding: 1rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .issue-name {
+            font-weight: 500;
+        }
+
+        .issue-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+        }
+
+        .issue-count {
+            font-weight: 600;
+        }
+
+        /* Review Examples */
+        .review-example {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+        }
+
+        .review-text {
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        .rating {
+            color: var(--warning-orange);
+            font-weight: 600;
+        }
+
+        /* Critical Flows */
+        .flow-card {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .flow-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .flow-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .flow-metrics {
+            display: flex;
+            gap: 2rem;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .metric {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .metric-value {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .metric-label {
+            color: var(--medium-gray);
+            font-size: 0.85rem;
+        }
+
+        /* Charts */
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 1.5rem 0;
+        }
+
+        /* Platform Comparison */
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .platform-card {
+            padding: 1.5rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .platform-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .android-icon { color: #3DDC84; }
+        .ios-icon { color: #000000; }
+
+        /* Key Insights */
+        .key-insight {
+            background: linear-gradient(135deg, var(--light-gray), var(--white));
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .insight-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-blue);
+        }
+
+        /* Summary Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+            margin-top: 0.25rem;
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+            text-align: center;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border-color);
+            border-top-color: var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .nav-tabs { flex-direction: column; }
+            .filter-grid { grid-template-columns: 1fr; }
+            .comparison-grid { grid-template-columns: 1fr; }
+            .platform-grid { grid-template-columns: 1fr; }
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1><i class="fas fa-chart-line"></i> Telecom App Analytics Dashboard</h1>
+            <p>Strategic insights from customer reviews to understand app performance and user needs</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="loading" class="loading">
+            <div>
+                <div class="loading-spinner"></div>
+                <h3>Loading Analytics...</h3>
+            </div>
+        </div>
+
+        <div id="dashboard" style="display: none;">
+            <!-- Navigation -->
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="showTab('overview')">
+                    <i class="fas fa-chart-pie"></i> Overview
+                </button>
+                <button class="nav-tab" onclick="showTab('insights')">
+                    <i class="fas fa-lightbulb"></i> Strategic Insights
+                </button>
+                <button class="nav-tab" onclick="showTab('reviews')">
+                    <i class="fas fa-comments"></i> Review Analysis
+                </button>
+            </div>
+
+            <!-- Simplified Filters -->
+            <div class="filters">
+                <div class="filter-grid">
+                    <div class="filter-item">
+                        <label><i class="fas fa-calendar"></i> Time Period</label>
+                        <select id="timeFilter" onchange="applyFilters()">
+                            <option value="all">All Time</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
+                            <option value="2018">2018</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label><i class="fas fa-building"></i> Telecom Provider</label>
+                        <select id="providerFilter" onchange="applyFilters()">
+                            <option value="all">All Providers</option>
+                            <option value="Rogers">Rogers</option>
+                            <option value="Bell">Bell</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label><i class="fas fa-mobile-alt"></i> Platform</label>
+                        <select id="platformFilter" onchange="applyFilters()">
+                            <option value="all">All Platforms</option>
+                            <option value="iOS">iOS</option>
+                            <option value="Android">Android</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label><i class="fas fa-tags"></i> Category</label>
+                        <select id="categoryFilter" onchange="applyFilters()">
+                            <option value="all">All Categories</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="filter-status" id="filterStatus"></p>
+            </div>
+
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalReviews">-</div>
+                        <div class="stat-label">Total Reviews</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="avgRating">-</div>
+                        <div class="stat-label">Average Rating</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="appIssues">-</div>
+                        <div class="stat-label">App-Related Issues</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="serviceIssues">-</div>
+                        <div class="stat-label">Service Issues</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-2">
+                    <div class="card">
+                        <h2><i class="fas fa-chart-pie card-icon"></i> Issue Distribution</h2>
+                        <div class="chart-container">
+                            <canvas id="issueDistChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h2><i class="fas fa-balance-scale card-icon"></i> Provider Comparison</h2>
+                        <div class="chart-container">
+                            <canvas id="providerCompChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2><i class="fas fa-chart-line card-icon"></i> Sentiment Trends</h2>
+                    <div class="chart-container">
+                        <canvas id="sentimentTrendChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strategic Insights Tab -->
+            <div id="insights" class="tab-content">
+                <div class="insight-section">
+                    <h2><i class="fas fa-mobile-alt card-icon"></i> Rogers Platform Analysis</h2>
+                    <div class="platform-grid" id="rogersPlatformAnalysis">
+                        <!-- Will be populated dynamically -->
+                    </div>
+                </div>
+
+                <div class="insight-section">
+                    <h2><i class="fas fa-balance-scale card-icon"></i> Rogers vs Bell: Customer Complaints</h2>
+                    <div class="comparison-grid" id="providerComparison">
+                        <!-- Will be populated dynamically -->
+                    </div>
+                </div>
+
+                <div class="insight-section">
+                    <h2><i class="fas fa-route card-icon"></i> Critical User Flows & Stories</h2>
+                    <div id="criticalFlows">
+                        <!-- Will be populated dynamically -->
+                    </div>
+                </div>
+
+                <div class="insight-section">
+                    <h2><i class="fas fa-lightbulb card-icon"></i> Key Intelligence Findings</h2>
+                    <div id="keyFindings">
+                        <!-- Will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review Analysis Tab -->
+            <div id="reviews" class="tab-content">
+                <div class="card">
+                    <h2><i class="fas fa-comments card-icon"></i> Customer Review Examples</h2>
+                    <div id="reviewExamples">
+                        <!-- Will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="enhanced_dashboard.js"></script>
+</body>
+</html>

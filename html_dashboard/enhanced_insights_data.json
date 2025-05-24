@@ -1,0 +1,437 @@
+{
+  "metadata": {
+    "analysis_date": "2025-05-23T17:08:42.629094",
+    "total_reviews": 12785,
+    "date_range": "2010-03-15 20:47:56 to 2025-05-20 12:25:06"
+  },
+  "categorization_summary": {
+    "primary_focus_distribution": {
+      "APP-RELATED": 3729,
+      "MIXED": 2809,
+      "SERVICE-RELATED": 2410,
+      "GENERAL-POSITIVE": 2150,
+      "GENERAL-NEGATIVE": 1370,
+      "UNCLEAR": 317
+    },
+    "top_categories": {
+      "Positive Feedback": 2150,
+      "App Features": 1855,
+      "Billing & Charges": 1489,
+      "Authentication": 1427,
+      "General Complaints": 1370,
+      "Functionality": 971,
+      "App Management": 794,
+      "Performance": 619,
+      "App Stability": 504,
+      "Customer Support": 425,
+      "User Experience": 368,
+      "Account Management": 332,
+      "": 317,
+      "Network & Connectivity": 164
+    },
+    "app_vs_service_breakdown": {
+      "rogers": {
+        "app_related": 3109,
+        "service_related": 1396,
+        "mixed": 2147
+      },
+      "bell": {
+        "app_related": 620,
+        "service_related": 1014,
+        "mixed": 662
+      }
+    }
+  },
+  "platform_comparison": {
+    "rogers": {
+      "ios": {
+        "total_reviews": 491,
+        "avg_rating": 1.8533604887983706,
+        "negative_percentage": 84.5213849287169,
+        "top_issues": {
+          "Authentication": 80,
+          "General Complaints": 74,
+          "Billing & Charges": 71,
+          "App Features": 60,
+          "Customer Support": 43
+        },
+        "examples": {}
+      },
+      "android": {
+        "total_reviews": 8547,
+        "avg_rating": 2.681993681993682,
+        "negative_percentage": 58.13735813735814,
+        "top_issues": {
+          "App Features": 1385,
+          "Positive Feedback": 1346,
+          "Authentication": 1149,
+          "Billing & Charges": 770,
+          "General Complaints": 739
+        },
+        "examples": {}
+      }
+    },
+    "bell": {
+      "ios": {
+        "total_reviews": 435,
+        "avg_rating": 1.8114942528735631,
+        "negative_percentage": 83.9080459770115,
+        "top_issues": {
+          "Billing & Charges": 118,
+          "App Features": 66,
+          "General Complaints": 65,
+          "Functionality": 30,
+          "Positive Feedback": 26
+        },
+        "examples": {}
+      },
+      "android": {
+        "total_reviews": 3312,
+        "avg_rating": 2.746376811594203,
+        "negative_percentage": 58.031400966183575,
+        "top_issues": {
+          "Positive Feedback": 746,
+          "Billing & Charges": 530,
+          "General Complaints": 492,
+          "App Features": 344,
+          "Functionality": 184
+        },
+        "examples": {}
+      }
+    }
+  },
+  "critical_flows": {
+    "Bill Payment Flow": {
+      "total_mentions": 2389,
+      "negative_percentage": 70.15487651737129,
+      "avg_rating": 2.2984512348262873
+    },
+    "Usage Monitoring": {
+      "total_mentions": 964,
+      "negative_percentage": 68.7759336099585,
+      "avg_rating": 2.4284232365145226
+    },
+    "Plan Management": {
+      "total_mentions": 819,
+      "negative_percentage": 78.75457875457876,
+      "avg_rating": 2.0268620268620268
+    },
+    "Account Access": {
+      "total_mentions": 1256,
+      "negative_percentage": 87.97770700636943,
+      "avg_rating": 1.65843949044586
+    },
+    "Customer Support": {
+      "total_mentions": 713,
+      "negative_percentage": 67.60168302945301,
+      "avg_rating": 2.3548387096774195
+    },
+    "Service Activation": {
+      "total_mentions": 601,
+      "negative_percentage": 79.53410981697171,
+      "avg_rating": 2.0149750415973378
+    }
+  },
+  "category_examples": {
+    "Positive Feedback": {
+      "rogers": [
+        {
+          "text": "This app finally works great.",
+          "rating": 5,
+          "date": "2020-11-19 14:29:47",
+          "platform": "Android"
+        },
+        {
+          "text": "If anybody has any doubts about this app, don't! Have used it for years and it is one app that provides all the information you can get from the website, and it's a seamless experience between the two.",
+          "rating": 5,
+          "date": "2022-10-26 15:12:40",
+          "platform": "Android"
+        }
+      ],
+      "bell": [
+        {
+          "text": "It's better and better.",
+          "rating": 4,
+          "date": "2018-07-07 08:31:02",
+          "platform": "Android"
+        },
+        {
+          "text": "Jusqu'\u00e0 date je suis nouveau sur le service, mes il a rien \u00e0 dire , tout est parfait.",
+          "rating": 5,
+          "date": "2018-11-07 15:43:12",
+          "platform": "Android"
+        }
+      ]
+    },
+    "App Features": {
+      "rogers": [
+        {
+          "text": "This app allows me to see my bill which is very convenient, but for the 3 months I have had the app and Rogers the main page has been down. I haven't been able to view my usage, equipment, and packages. This results in having to make calls in order to resolve any issues (and there has been non stop billing issues). It would be nice if something would work as advertised with Rogers.",
+          "rating": 2,
+          "date": "2024-04-30 03:18:31",
+          "platform": "Android"
+        },
+        {
+          "text": "The app works good, Rogers is not good. I would not recommend them to anyone. Rip off artists and way over charge. We have been with them for well over a decade but as soon as our present phone contracts are done we will start looking for other options. During this COVID time they have done NOTHING to make it easier on people who may have lost jobs or income. Three days late paying a bill and they charge close to $14 late fees!?!? BS!!! All about how much money THEY can make!",
+          "rating": 3,
+          "date": "2020-08-26 08:46:11",
+          "platform": "Android"
+        }
+      ],
+      "bell": [
+        {
+          "text": "Most things don't work unless you're just trying to check data usage or pay your bill. Making changes to account or plan never works. Would love to not have to wait in line on the call center but nope this never works.",
+          "rating": 1,
+          "date": "2025-04-12 06:06:07",
+          "platform": "Android"
+        },
+        {
+          "text": "L'app est efficace mais faut toujours surveiller nos forfaits car les augmentation sont fr\u00e9quentes et si ont surveille pas nos forfaits et bien vous allez avoir des augmentation de 15 a 25% par ann\u00e9e donc avec bell ces maintenant comme les assurances automobile faut changer de compagnie pour avoir les promo de la comp\u00e9tition et revenir avec bell quand ils offres des promo comp\u00e9titif ces plate mais les nouveaux clients ont toujours les meilleurs prix",
+          "rating": 4,
+          "date": "2025-02-08 20:46:21",
+          "platform": "Android"
+        }
+      ]
+    },
+    "Billing & Charges": {
+      "rogers": [
+        {
+          "text": "Bonne appli elle permet facilement de faire nos paiements, je reproche juste une chose c'est le fait qu'on puisse pas enregistr\u00e9 notre carte , qui faut que je rentre \u00e0 chaque paiement",
+          "rating": 4,
+          "date": "2019-09-19 04:09:41",
+          "platform": "Android"
+        },
+        {
+          "text": "I just used this app to pay my bill and it worked well. However, I have a suggestion. The app should be able to remember the credit card details or perhaps even use Google Pay. I can buy stuff in stores, simply by using tap and can make bank transactions and more, without entering my card details. Why is it still necessary to do this with this app? I can understand once, but not every time.",
+          "rating": 4,
+          "date": "2020-06-02 06:16:41",
+          "platform": "Android"
+        }
+      ],
+      "bell": [
+        {
+          "text": "over 2 years I have had no issues to complain about except having to pay fee for a phone , that, t the end of its contract I have begrudgingly paid. Friends and relatives have experienced outages, incorrect billing, and a host of other issues with competitors who have lower rates, but the few extra dollars, at the end of the day, have made it worthwhile for me. Bell is best.",
+          "rating": 5,
+          "date": "2024-04-24 16:10:43",
+          "platform": "Android"
+        },
+        {
+          "text": "Don't ever try to make payment arrangements. On two separate occasions I attempted to do so, the app showed the arrangement I made and I confirmed. I then received an email stating I had agreed to pay the full balance the very next day. The first time this happened I called bell and they fixed it. The most recent time it happened they insisted there was nothing they could do and that I had to stick to the arrangement it was showing, despite me having proof of the actual arrangement.",
+          "rating": 1,
+          "date": "2022-12-15 09:26:32",
+          "platform": "Android"
+        }
+      ]
+    },
+    "Authentication": {
+      "rogers": [
+        {
+          "text": "The login for the app is terrible - it works inconsistently. Sometimes when I try to log on, it takes me to the log in screen, other times it sends me to an external link, and yet other times it doesn't work at all and the screen goes blank with only \"Rogers\" on it and nothing else loading. The user experience alone is enough to make me seriously consider leaving for Bell, whose app has never given me this much trouble. Edit: unable to uninstall the app as it is a default app, bad advice below",
+          "rating": 1,
+          "date": "2023-02-07 16:56:14",
+          "platform": "Android"
+        },
+        {
+          "text": "Absolutely unusable, infinite captcha checks. Uninstalled, reinstalled, on wi-fi, on data, restarted phone, hard and soft. Why do we need to be taken out of the app to log in all of a sudden? What was wrong with in app logins? This is a trend I've noticed recently, and all it's done is inconvenience (you now have to log in multiple times in most cases), cause confusion with the app and be unreliable to the consumer.",
+          "rating": 1,
+          "date": "2024-01-05 19:31:09",
+          "platform": "Android"
+        }
+      ],
+      "bell": [
+        {
+          "text": "si vous arr\u00eatez pas de me faire cliquer sur des criss de photos d'attard\u00e9s pour me connecter je change de compagnie de cellulaire... toujours bien des limites a perdre son temps pour payer son criss de forfait",
+          "rating": 1,
+          "date": "2019-02-11 07:12:13",
+          "platform": "Android"
+        },
+        {
+          "text": "the app use to be good. but with the new update its make it very hard to see simple information. like displaying the balance when open the apps. instead of login all the time. what is the point of having the full function of apps when I keep login. the verification is damn annoying. after select all the right picture it still show it's not correct. make it simple and display the damn balance without login. it's already direct link to the phone number.",
+          "rating": 1,
+          "date": "2019-01-05 09:39:43",
+          "platform": "Android"
+        }
+      ]
+    },
+    "General Complaints": {
+      "rogers": [
+        {
+          "text": "Both the Rogers site and app are terrible. All I wanna do is check my usage and apparently that's some sort of huge deal. step yo game up Rogers",
+          "rating": 1,
+          "date": "2013-06-02 23:17:24",
+          "platform": "Android"
+        },
+        {
+          "text": "Impossible d'ouvrir l'app depuis plusieurs jours....",
+          "rating": 1,
+          "date": "2021-04-28 18:03:35",
+          "platform": "Android"
+        }
+      ],
+      "bell": [
+        {
+          "text": "mon exp\u00e9rience avec Bell ! disons que c'est pas la perfection. j'ai toujours des probl\u00e8me avec mon routeur. je dois constamment le d\u00e9brancher et rebrancher. durant ce temps mes \u00e9mission que j'enregistre en perd des bout ! \u00e9galement mon internet arr\u00eate de fonctionner, c'est pas pratique quand je suis sur une application puis tout s'arr\u00eate d'un coup sec... les frais de service, un peut trop chers via la concurrence.. je pense me d\u00e9sabonner pour aller avec un autre fournisseur.. voil\u00e0. merci.",
+          "rating": 4,
+          "date": "2021-06-06 18:51:01",
+          "platform": "Android"
+        },
+        {
+          "text": "What a piece of crap! I've had the Samsung Note,  Note 2 and now the Note 4 ...  I'VE NEVER BEEN ABLE TO GET THIS APP TO WORK PROPERLY.",
+          "rating": 1,
+          "date": "2016-02-19 23:51:34",
+          "platform": "Android"
+        }
+      ]
+    },
+    "Functionality": {
+      "rogers": [
+        {
+          "text": "Most of the time it keeps clocking and clocking when trying to pull up my usage and never loads. Works fine only about 10% of the time, but when it works it's great. Unfortunately it doesn't work most of the time. Edit: added a star because closing the app and restarting fixes the issue, but hope they can resolve it so it functions without a workaround.",
+          "rating": 2,
+          "date": "2020-02-03 17:08:36",
+          "platform": "Android"
+        },
+        {
+          "text": "Brutal, frustratingl, buggy, data limits don't work and totally non intuitive app! Rogers is to be avoided at all costs, I wish I had never switched and I will be leaving as soon as possible. edit: thanks for the reply, but no, I've already spent hours on the phone with you and it only gets more frustrating. You can figure out your own problems, I'm done.",
+          "rating": 1,
+          "date": "2019-10-24 10:57:30",
+          "platform": "Android"
+        }
+      ],
+      "bell": [
+        {
+          "text": "Bell on une internet de haute qualit\u00e9 mais leur service a la client\u00e8le et leur gestion de facturation est compl\u00e8tement d\u00e9faillante et mauvaise et depuis plus d'une d\u00e9cennie ; il font des erreurs sans arr\u00eat et charge en double et des montants non entendus, ajoute des forfais non demand\u00e9s et ensuite propose une arrangement de payement sur des service jamais utilis\u00e9, ne jamais mettre le service de payement automatique actif avec eu.",
+          "rating": 2,
+          "date": "2021-08-23 07:57:36",
+          "platform": "Android"
+        },
+        {
+          "text": "Hey mon grand... ton application marche pas! Chu pris avec des option que je veut pue bin non pris avec sa... moi ma seul option ces l'appel telephonique pis ces soit attente ou bien transfert d'appel.... honnetement ces execrable. Probleme sa dit: probl\u00e8me technique depuis une semaine mais mon p\u00e8re qui a le meme telephone bin sa fonctionne! D\u00e9cue!",
+          "rating": 1,
+          "date": "2016-02-15 18:24:34",
+          "platform": "Android"
+        }
+      ]
+    },
+    "App Management": {
+      "rogers": [
+        {
+          "text": "I've had this app installed since a little over 2 years. Use to work very well, could check my usage, view/ pay my bills. It's was really excellent. BUT now, after a few latest updates, I can only see my usage and I can't see my bill, or pay it. I think instead of improving the app, it's going the other way, down the garbage. Neither could the customer service rep help me, he suggests that I pay my bills using a computer. It's just useless. I'm another unhappy client of MyRogers app. \ud83d\ude44\ud83d\ude44",
+          "rating": 1,
+          "date": "2020-08-12 09:32:57",
+          "platform": "Android"
+        },
+        {
+          "text": "After the updates, everything went very smooth and easy to access. With Rogers over 15 years, added my two kids with Rogers. Great Customer service and loyal programs. Canada has the highest wireless fee in the world, if only this can be much lower, it will be perfect.",
+          "rating": 4,
+          "date": "2021-03-21 18:01:06",
+          "platform": "Android"
+        }
+      ],
+      "bell": [
+        {
+          "text": "Horrible app: The update on data usage is late by 5-6 days and you just cannot depend on this useless app. Same goes for bell systems - I have been constantly  calling them and highlighting my fear of latent and sudden spike in the data usage. They have been saying its NEVER late than 4 hours. Yesterday I had around 500MB and today it shows 2.5 GB. I have just moved to Bell a week ago and I hate it already! My 5 years with Fido had been great but they just didn't have a plan for my needs. Edit: To the nameless support person - all those obvious troubleshooting steps have been already been tried!",
+          "rating": 1,
+          "date": "2017-06-28 20:22:11",
+          "platform": "Android"
+        },
+        {
+          "text": "I previously had a cell plan with bell, however recently I switched providers and no longer have any business with bell. My issue isn't with bells lack luster service or their high prices, instead my problem lies with this app as I can't seem to uninstall it. Now I can excuse it being nearly non functional, and overall a waste of time trying to engage with it, what I can't excuse is not being able to remove the app. Don't make me carry your bloatware especially if I'm not doing business with you",
+          "rating": 1,
+          "date": "2021-02-09 14:53:49",
+          "platform": "Android"
+        }
+      ]
+    },
+    "Performance": {
+      "rogers": [
+        {
+          "text": "This app is often not accessible. It is slow to load, sometimes kicks you out while loading, and is not intuitive. My invitation is to use clear language and menus and a steady format. Don't make this a maze to navigate as it leaves people frustrated. RESPONSE: Thanks for the reply, Rogers. I have the above mentioned experience over WiFi and LTE. Overall I've appreciated Rogers service and this element (app issues)is the one hiccup that has consistently emerged. Hopefully it improves over time.",
+          "rating": 2,
+          "date": "2020-11-09 02:01:52",
+          "platform": "Android"
+        },
+        {
+          "text": "So i downloaded your update.... Now I can't even get into my account now... What, did I push the DOWNLOAD button wrong??? Can't get past the OPEN/UNINSTALL screen... What gives???",
+          "rating": 1,
+          "date": "2012-06-13 18:28:57",
+          "platform": "Android"
+        }
+      ],
+      "bell": [
+        {
+          "text": "I just switched to Bell and have attempted multiple times to open the MyBell app in order to make my first payment and so far I haven't been successful. I get a blue screen and a thin line that says \"initializing\" and then freezes. So far, I'm not impressed with the app! Let's see how it works out on my computer...",
+          "rating": 1,
+          "date": "2022-11-08 14:24:40",
+          "platform": "Android"
+        },
+        {
+          "text": "Fails to start, stuck on blue screen with BELL logo. Running on Pixel 7 with Android 13. Please fix this soonest. Edit. After repeated reinstalls it now takes a a good minute to launch. I have lots of space as this is a new phone........Edit the launch time is still unacceptably slow Edit. Still the same issue months later. Uninstalling and go back to web UI.",
+          "rating": 2,
+          "date": "2023-05-28 12:36:19",
+          "platform": "Android"
+        }
+      ]
+    },
+    "App Stability": {
+      "rogers": [
+        {
+          "text": "Open Failes Whenever I try to use the application, I don't even see the log-in page. Pop up a message box, which is saying \"Something went wrong Sorry, we've hit a snag. Please check back later.\" I've been using this app for so many years , and I had no problems. You better know what has been changed last a couple of weeks. I suggest you guys work on it. Maybe go back before changes made options. Not: accessing in web browsers I have no problem",
+          "rating": 1,
+          "date": "2025-02-26 18:21:08",
+          "platform": "Android"
+        },
+        {
+          "text": "The app used to be great and i had no complaints for years. However, since the Nov. 2021 black friday update, the app has had nothing but problems on my android device. It constantly crashes despite various new updates over the last 4 months and in the days when im actually able to open the app and view my bill, it consistantly gives an error message after i put in the credit card when i try to pay the bill. So for the last 4 months I've had to resort to signing in on my laptop to pay my bills.",
+          "rating": 1,
+          "date": "2022-02-16 05:27:41",
+          "platform": "Android"
+        }
+      ],
+      "bell": [
+        {
+          "text": "This app used to make things easier. Now it doesn't want to open. It immediately crashes upon startup. UPDATE! New update didn't fix things. Still crashing repeatedly. Another update, it's been probably 2 months of not longer and the app still crashes immediately after signing in. App does not work at all.",
+          "rating": 1,
+          "date": "2023-12-09 14:54:40",
+          "platform": "Android"
+        },
+        {
+          "text": "App crashes / cannot open. Uninstalled and updated the app, same issue",
+          "rating": 5,
+          "date": "2025-05-06 17:07:11",
+          "platform": "Android"
+        }
+      ]
+    },
+    "Customer Support": {
+      "rogers": [
+        {
+          "text": "I would like to confirm if this app should work for small business users or not. I was informed by Tech support (after almost 3 weeks of not having my data usage availability issue solved) that to get my data usage, i have to use the website account which is definitely a step backwards regarding convenience. This is contrary to what i was informed when switched from the previous app for which i had no issues accessing my data usage. If that's the case then why was the previous app discontinued since i could access the data usage through that. If this app does not fully support small business users then that should clearly be stated. The phone and plan tabs populate correctly, but the usage tab says i have made a plan change (which i have never made) and so usage details are unavailable.",
+          "rating": 1,
+          "date": "2021-04-25 06:54:13",
+          "platform": "Android"
+        },
+        {
+          "text": "It stopped working and I've emailed Rogers twice as to how I could fix it and (surprise, surprise) no response. Thanks, Rogers, for showing how much you care about your customers!",
+          "rating": 1,
+          "date": "2016-12-18 15:25:40",
+          "platform": "Android"
+        }
+      ],
+      "bell": [
+        {
+          "text": "Depuis moins de 3 mois que je suis avec Bell et j'ai eu des probl\u00e8mes d'images continuellement. J'ai appel\u00e9 environ 10 fois pour ce probl\u00e8me et j'ai perdu au moins une demi-heure chaque fois. On me disait que \u00e7a n'arriverait plus. Mais l'image coupait, s'embrouillait durant 3 \u00e0 4 secondes. Encore et encore. PAS UNE JOURN\u00c9E SANS PROBL\u00c8MES. J'ai cancell\u00e9 le service. On a gonfl\u00e9 ma derni\u00e8re facture de plus de 120$. Je ne comprends pas. BELL, C'EST FINI POUR MOI. \u00c0 VIE!",
+          "rating": 1,
+          "date": "2021-11-14 13:28:17",
+          "platform": "Android"
+        },
+        {
+          "text": "worst mobile phone company in Canada. I pity anyone who has to deal with the customer service center. Been with bell for 3 years now and it has been an absolute nightmare. Totally incompetent employees, and there dosent seem to be any kind of standard to there policies. Their policies change with every employee you talk too. I have had agreements with them and gotten a call a few days later telling me that the agreement we set in place was not approved and then had my service suspended.",
+          "rating": 1,
+          "date": "2021-04-21 22:48:14",
+          "platform": "Android"
+        }
+      ]
+    }
+  }
+}
