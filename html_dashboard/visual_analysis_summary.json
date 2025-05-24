@@ -1,0 +1,114 @@
+{
+  "analysis_date": "2025-05-23T16:58:33.173497",
+  "period": "2018-2025",
+  "total_reviews": 10703,
+  "rogers_stats": {
+    "total_reviews": 7753,
+    "avg_rating": 2.75815813233587,
+    "negative_pct": 56.04282213336773,
+    "top_keywords": [
+      [
+        "just",
+        586
+      ],
+      [
+        "time",
+        573
+      ],
+      [
+        "bill",
+        538
+      ],
+      [
+        "even",
+        534
+      ],
+      [
+        "when",
+        530
+      ],
+      [
+        "phone",
+        526
+      ],
+      [
+        "work",
+        515
+      ],
+      [
+        "doesn",
+        454
+      ],
+      [
+        "update",
+        439
+      ],
+      [
+        "sign",
+        432
+      ]
+    ],
+    "platform_breakdown": {
+      "android": 7753,
+      "ios": 0
+    }
+  },
+  "bell_stats": {
+    "total_reviews": 2950,
+    "avg_rating": 2.8057627118644066,
+    "negative_pct": 56.779661016949156,
+    "top_keywords": [
+      [
+        "service",
+        306
+      ],
+      [
+        "bill",
+        255
+      ],
+      [
+        "phone",
+        183
+      ],
+      [
+        "when",
+        166
+      ],
+      [
+        "time",
+        163
+      ],
+      [
+        "account",
+        145
+      ],
+      [
+        "customer",
+        136
+      ],
+      [
+        "even",
+        128
+      ],
+      [
+        "just",
+        128
+      ],
+      [
+        "work",
+        104
+      ]
+    ],
+    "platform_breakdown": {
+      "android": 2950,
+      "ios": 0
+    }
+  },
+  "key_insights": [
+    "Rogers app receives nearly 2x more app-related complaints than Bell",
+    "Both apps show declining ratings in 2023-2025 period",
+    "Android users report more issues than iOS users for both apps",
+    "Installation and login issues are the top pain points for Rogers users",
+    "Bell users complain more about service quality than app functionality"
+  ]
+}

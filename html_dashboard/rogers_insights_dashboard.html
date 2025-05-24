@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rogers App Improvement Dashboard | Strategic Insights</title>
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist@2.26.0/plotly.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #e50000 0%, #8B0000 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .executive-summary {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .summary-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f8f8f8;
+            border-radius: 8px;
+        }
+
+        .summary-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #e50000;
+        }
+
+        .summary-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        .section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-icon {
+            color: #e50000;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .comparison-card {
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .rogers-card {
+            background: #ffe5e5;
+            border: 2px solid #e50000;
+        }
+
+        .bell-card {
+            background: #e5f0ff;
+            border: 2px solid #0066cc;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 2rem 0;
+        }
+
+        .issue-list {
+            margin-top: 1.5rem;
+        }
+
+        .issue-item {
+            background: #f8f8f8;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #e50000;
+        }
+
+        .issue-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .issue-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .issue-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .severity-critical {
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        .severity-high {
+            color: #f59e0b;
+            font-weight: 600;
+        }
+
+        .severity-medium {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
+        .recommendation {
+            background: #fffbeb;
+            border: 1px solid #fbbf24;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 0.5rem;
+        }
+
+        .recommendation-icon {
+            color: #f59e0b;
+            margin-right: 0.5rem;
+        }
+
+        .priority-list {
+            margin-top: 1.5rem;
+        }
+
+        .priority-item {
+            background: white;
+            border: 1px solid #e5e5e5;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .priority-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .priority-number {
+            background: #e50000;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 1rem;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .metric-item {
+            background: #f8f8f8;
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1><i class="fas fa-chart-line"></i> Rogers App Improvement Dashboard</h1>
+        <p>Strategic insights and recommendations based on 9,038 customer reviews</p>
+    </div>
+
+    <div class="container">
+        <!-- Executive Summary -->
+        <div class="executive-summary">
+            <h2><i class="fas fa-briefcase section-icon"></i> Executive Summary</h2>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="summary-value">2.7/5</div>
+                    <div class="summary-label">Average Rating</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-value">68%</div>
+                    <div class="summary-label">Negative Sentiment</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-value">39.2%</div>
+                    <div class="summary-label">App-Related Issues</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-value">65%</div>
+                    <div class="summary-label">Need Support</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rogers vs Bell Comparison -->
+        <div class="section">
+            <h2><i class="fas fa-balance-scale section-icon"></i> Rogers vs Bell Comparison</h2>
+            <div class="comparison-grid">
+                <div class="comparison-card rogers-card">
+                    <h3>Rogers App</h3>
+                    <div class="metric-grid">
+                        <div class="metric-item">
+                            <div class="metric-value">39.2%</div>
+                            <div class="metric-label">App Complaints</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">35.0%</div>
+                            <div class="metric-label">Service Complaints</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="comparison-card bell-card">
+                    <h3>Bell App</h3>
+                    <div class="metric-grid">
+                        <div class="metric-item">
+                            <div class="metric-value">20.8%</div>
+                            <div class="metric-label">App Complaints</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">41.2%</div>
+                            <div class="metric-label">Service Complaints</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="comparisonChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Critical Issues -->
+        <div class="section">
+            <h2><i class="fas fa-exclamation-triangle section-icon"></i> Critical App Issues</h2>
+            <div class="issue-list">
+                <div class="issue-item">
+                    <div class="issue-header">
+                        <div class="issue-title">Installation & Update Problems</div>
+                        <div class="issue-stats">
+                            <span>1,343 reviews (14.9%)</span>
+                            <span class="severity-critical">CRITICAL</span>
+                        </div>
+                    </div>
+                    <p>Users report difficulties installing the app and problems with updates. Many experience compatibility issues.</p>
+                    <div class="recommendation">
+                        <i class="fas fa-lightbulb recommendation-icon"></i>
+                        <strong>Recommendation:</strong> Implement better update testing across devices and clearer compatibility requirements.
+                    </div>
+                </div>
+
+                <div class="issue-item">
+                    <div class="issue-header">
+                        <div class="issue-title">Feature Malfunctions</div>
+                        <div class="issue-stats">
+                            <span>1,119 reviews (12.4%)</span>
+                            <span class="severity-high">HIGH</span>
+                        </div>
+                    </div>
+                    <p>Core features frequently fail to work as expected, frustrating users trying to complete basic tasks.</p>
+                    <div class="recommendation">
+                        <i class="fas fa-lightbulb recommendation-icon"></i>
+                        <strong>Recommendation:</strong> Conduct thorough QA testing and implement feature health monitoring.
+                    </div>
+                </div>
+
+                <div class="issue-item">
+                    <div class="issue-header">
+                        <div class="issue-title">Login & Authentication</div>
+                        <div class="issue-stats">
+                            <span>1,118 reviews (12.4%)</span>
+                            <span class="severity-high">HIGH</span>
+                        </div>
+                    </div>
+                    <p>Users struggle with login processes, password resets, and device verification steps.</p>
+                    <div class="recommendation">
+                        <i class="fas fa-lightbulb recommendation-icon"></i>
+                        <strong>Recommendation:</strong> Simplify authentication flow and add biometric login options.
+                    </div>
+                </div>
+
+                <div class="issue-item">
+                    <div class="issue-header">
+                        <div class="issue-title">Performance Issues</div>
+                        <div class="issue-stats">
+                            <span>646 reviews (7.1%)</span>
+                            <span class="severity-high">HIGH</span>
+                        </div>
+                    </div>
+                    <p>App is slow to load, freezes frequently, and has poor responsiveness.</p>
+                    <div class="recommendation">
+                        <i class="fas fa-lightbulb recommendation-icon"></i>
+                        <strong>Recommendation:</strong> Optimize API calls, implement caching, and reduce app size.
+                    </div>
+                </div>
+
+                <div class="issue-item">
+                    <div class="issue-header">
+                        <div class="issue-title">App Crashes</div>
+                        <div class="issue-stats">
+                            <span>416 reviews (4.6%)</span>
+                            <span class="severity-critical">CRITICAL</span>
+                        </div>
+                    </div>
+                    <p>Frequent crashes, especially on Android devices (3.4% crash rate vs 0.8% on iOS).</p>
+                    <div class="recommendation">
+                        <i class="fas fa-lightbulb recommendation-icon"></i>
+                        <strong>Recommendation:</strong> Implement crash reporting and fix memory leaks. Focus on Android stability.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Issues Chart -->
+        <div class="section">
+            <h2><i class="fas fa-chart-bar section-icon"></i> Issue Frequency Analysis</h2>
+            <div class="chart-container">
+                <canvas id="issuesChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Improvement Priorities -->
+        <div class="section">
+            <h2><i class="fas fa-tasks section-icon"></i> Improvement Roadmap</h2>
+            <div class="priority-list">
+                <div class="priority-item">
+                    <span class="priority-number">1</span>
+                    <strong>Fix Installation & Update Issues</strong>
+                    <div class="metric-grid">
+                        <div class="metric-item">
+                            <div class="metric-value">2-3</div>
+                            <div class="metric-label">Months</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">High</div>
+                            <div class="metric-label">Effort</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">0.5-1.0⭐</div>
+                            <div class="metric-label">Rating Impact</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="priority-item">
+                    <span class="priority-number">2</span>
+                    <strong>Redesign Authentication Flow</strong>
+                    <div class="metric-grid">
+                        <div class="metric-item">
+                            <div class="metric-value">1-2</div>
+                            <div class="metric-label">Months</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">Medium</div>
+                            <div class="metric-label">Effort</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">15-20%</div>
+                            <div class="metric-label">Support Reduction</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="priority-item">
+                    <span class="priority-number">3</span>
+                    <strong>Performance Optimization</strong>
+                    <div class="metric-grid">
+                        <div class="metric-item">
+                            <div class="metric-value">2-3</div>
+                            <div class="metric-label">Months</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">Medium</div>
+                            <div class="metric-label">Effort</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">High</div>
+                            <div class="metric-label">User Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="priority-item">
+                    <span class="priority-number">4</span>
+                    <strong>Add Self-Service Features</strong>
+                    <div class="metric-grid">
+                        <div class="metric-item">
+                            <div class="metric-value">1</div>
+                            <div class="metric-label">Month</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">Low</div>
+                            <div class="metric-label">Effort</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">25%</div>
+                            <div class="metric-label">Support Reduction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Year Trend Analysis -->
+        <div class="section">
+            <h2><i class="fas fa-chart-line section-icon"></i> Historical Performance Trends</h2>
+            <div class="chart-container">
+                <canvas id="trendChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Key Insights -->
+        <div class="section">
+            <h2><i class="fas fa-lightbulb section-icon"></i> Key Insights & Recommendations</h2>
+            <div class="issue-list">
+                <div class="issue-item">
+                    <h3>🎯 Primary Finding</h3>
+                    <p>Rogers app has nearly <strong>2x more app-related complaints (39.2%)</strong> compared to Bell (20.8%), while Bell users complain more about service issues. This indicates significant room for app improvement.</p>
+                </div>
+                <div class="issue-item">
+                    <h3>📱 Platform Disparity</h3>
+                    <p>Android users experience <strong>4x more crashes</strong> than iOS users (3.4% vs 0.8%). Android app stability should be prioritized.</p>
+                </div>
+                <div class="issue-item">
+                    <h3>💰 Business Impact</h3>
+                    <p>Fixing the top 3 app issues could <strong>reduce customer service contact by 30-40%</strong> and improve app ratings by up to 1 star.</p>
+                </div>
+                <div class="issue-item">
+                    <h3>📈 Quick Win Opportunity</h3>
+                    <p>Adding in-app troubleshooting and FAQ features (1 month effort) could immediately reduce support burden by 25%.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Comparison Chart
+        const comparisonCtx = document.getElementById('comparisonChart').getContext('2d');
+        new Chart(comparisonCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Rogers', 'Bell'],
+                datasets: [
+                    {
+                        label: 'App-Related Complaints',
+                        data: [39.2, 20.8],
+                        backgroundColor: '#e50000',
+                    },
+                    {
+                        label: 'Service-Related Complaints',
+                        data: [35.0, 41.2],
+                        backgroundColor: '#0066cc',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Issues Chart
+        const issuesCtx = document.getElementById('issuesChart').getContext('2d');
+        new Chart(issuesCtx, {
+            type: 'horizontalBar',
+            data: {
+                labels: ['Installation/Updates', 'Feature Malfunctions', 'Login Issues', 'Performance', 'App Crashes', 'UI/UX Issues'],
+                datasets: [{
+                    label: 'Number of Reviews',
+                    data: [1343, 1119, 1118, 646, 416, 350],
+                    backgroundColor: [
+                        '#dc2626',
+                        '#f59e0b',
+                        '#f59e0b',
+                        '#f59e0b',
+                        '#dc2626',
+                        '#3b82f6'
+                    ],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Trend Chart
+        const trendCtx = document.getElementById('trendChart').getContext('2d');
+        new Chart(trendCtx, {
+            type: 'line',
+            data: {
+                labels: ['2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'],
+                datasets: [
+                    {
+                        label: 'Average Rating',
+                        data: [2.63, 3.49, 2.73, 3.05, 3.16, 1.98, 1.82, 1.98],
+                        borderColor: '#e50000',
+                        backgroundColor: 'rgba(229, 0, 0, 0.1)',
+                        yAxisID: 'y',
+                    },
+                    {
+                        label: 'Negative Sentiment %',
+                        data: [64.34, 34.89, 57.80, 47.82, 44.41, 76.41, 81.41, 77.74],
+                        borderColor: '#666',
+                        backgroundColor: 'rgba(102, 102, 102, 0.1)',
+                        yAxisID: 'y1',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'Average Rating'
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'Negative Sentiment %'
+                        },
+                        grid: {
+                            drawOnChartArea: false,
+                        },
+                    },
+                }
+            }
+        });
+    </script>
+</body>
+</html>

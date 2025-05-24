@@ -1,0 +1,666 @@
+{
+  "total_reviews": 12785,
+  "rogers_reviews": 9038,
+  "bell_reviews": 3747,
+  "average_rating": 2.6,
+  "sentiment_distribution": {
+    "Negative": 7671,
+    "Positive": 4176,
+    "Neutral": 675,
+    "Mixed": 263
+  },
+  "rating_distribution": {
+    "0": 2,
+    "1": 6029,
+    "2": 1010,
+    "3": 889,
+    "4": 1274,
+    "5": 3581
+  },
+  "category_type_distribution": {
+    "General": 8738,
+    "App-Related": 3913,
+    "Service-Related": 132,
+    "Mixed": 2
+  },
+  "final_category_distribution": {
+    "User Experience": 2002,
+    "Features": 1669,
+    "Billing": 1591,
+    "User Feedback": 1433,
+    "Login Issues": 916,
+    "App Crashes": 815,
+    "Performance": 779,
+    "Customer Support": 639,
+    "Feature Malfunctions": 513,
+    "Account Management": 436,
+    "Connectivity Issues": 337,
+    "Loading Problems": 313,
+    "Installation Problems": 229,
+    "Performance Issues": 187,
+    "Payment Processing": 165,
+    "Data Sync Issues": 140,
+    "Service - Network Quality": 127,
+    "Account Access": 83,
+    "Navigation Issues": 58,
+    "Authentication": 54,
+    "General": 54,
+    "Other Technical": 54,
+    "Security Concerns": 40,
+    "Invalid Reviews": 38,
+    "Security": 23,
+    "Data Usage": 13,
+    "Integration Issues": 11,
+    "Push Notifications": 7,
+    "Video/Media Issues": 6,
+    "Compatibility Issues": 5,
+    "No Technical Issues": 4,
+    "App Performance": 4,
+    "Settings Problems": 4,
+    "Update Issues": 4,
+    "Service - Network Outages": 4,
+    "App - Technical Issues": 4,
+    "Device Compatibility": 4,
+    "Notifications": 3,
+    "Roaming": 3,
+    "Language Issues": 2,
+    "Update Problems": 2,
+    "Other": 1,
+    "Mixed - App & Service": 1,
+    "SIM Card Issues": 1,
+    "Screen Issues": 1,
+    "App Crashes: App unexpectedly closes, freezes, or becomes unresponsive": 1,
+    "Billing Issues": 1,
+    "Service - Device/Hardware": 1,
+    "Technical Issues": 1,
+    "Language/Localization": 1
+  },
+  "platform_comparison": {
+    "Android": {
+      "total": 11859,
+      "avg_rating": 2.7,
+      "negative_pct": 58.1,
+      "app_related": 3790,
+      "service_related": 38
+    },
+    "iOS": {
+      "total": 926,
+      "avg_rating": 1.8,
+      "negative_pct": 84.2,
+      "app_related": 123,
+      "service_related": 94
+    }
+  },
+  "app_comparison": {
+    "Rogers": {
+      "total": 9038,
+      "avg_rating": 2.6,
+      "negative_pct": 59.6,
+      "app_related": 3013,
+      "service_related": 88
+    },
+    "Bell": {
+      "total": 3747,
+      "avg_rating": 2.6,
+      "negative_pct": 61.0,
+      "app_related": 900,
+      "service_related": 44
+    }
+  },
+  "yearly_trends": {
+    "2010": {
+      "total": 122,
+      "avg_rating": 2.7,
+      "negative_pct": 58.2
+    },
+    "2011": {
+      "total": 86,
+      "avg_rating": 2.2,
+      "negative_pct": 74.4
+    },
+    "2012": {
+      "total": 107,
+      "avg_rating": 1.8,
+      "negative_pct": 82.2
+    },
+    "2013": {
+      "total": 104,
+      "avg_rating": 1.9,
+      "negative_pct": 82.7
+    },
+    "2014": {
+      "total": 153,
+      "avg_rating": 1.8,
+      "negative_pct": 79.7
+    },
+    "2015": {
+      "total": 197,
+      "avg_rating": 1.6,
+      "negative_pct": 87.3
+    },
+    "2016": {
+      "total": 167,
+      "avg_rating": 1.7,
+      "negative_pct": 81.4
+    },
+    "2017": {
+      "total": 220,
+      "avg_rating": 2.7,
+      "negative_pct": 60.0
+    },
+    "2018": {
+      "total": 432,
+      "avg_rating": 3.0,
+      "negative_pct": 54.6
+    },
+    "2019": {
+      "total": 1202,
+      "avg_rating": 3.5,
+      "negative_pct": 34.6
+    },
+    "2020": {
+      "total": 2400,
+      "avg_rating": 2.8,
+      "negative_pct": 56.5
+    },
+    "2021": {
+      "total": 1790,
+      "avg_rating": 3.0,
+      "negative_pct": 48.0
+    },
+    "2022": {
+      "total": 1462,
+      "avg_rating": 3.1,
+      "negative_pct": 46.9
+    },
+    "2023": {
+      "total": 1120,
+      "avg_rating": 2.2,
+      "negative_pct": 72.2
+    },
+    "2024": {
+      "total": 1407,
+      "avg_rating": 2.1,
+      "negative_pct": 73.8
+    },
+    "2025": {
+      "total": 890,
+      "avg_rating": 2.4,
+      "negative_pct": 69.7
+    }
+  },
+  "business_impact_distribution": {
+    "High": 117,
+    "Medium": 21
+  },
+  "actionable_by_distribution": {
+    "Service Team": 132,
+    "App Team": 4,
+    "Both Teams": 2
+  },
+  "enhanced_technical_analysis": {
+    "summary": {
+      "total_reviews_analyzed": 3905,
+      "average_severity": 3.94,
+      "categories_identified": 29,
+      "high_severity_count": 3434
+    },
+    "category_distribution": {
+      "Login Issues": 916,
+      "App Crashes": 815,
+      "Feature Malfunctions": 513,
+      "Connectivity Issues": 337,
+      "Loading Problems": 313,
+      "Installation Problems": 229,
+      "Performance Issues": 187,
+      "Payment Processing": 165,
+      "Data Sync Issues": 140,
+      "Account Access": 83,
+      "Navigation Issues": 58,
+      "Other Technical": 54,
+      "Security Concerns": 40,
+      "Integration Issues": 11,
+      "Push Notifications": 7,
+      "Video/Media Issues": 6,
+      "Compatibility Issues": 5,
+      "Settings Problems": 4,
+      "Device Compatibility": 4,
+      "No Technical Issues": 4,
+      "Update Issues": 4,
+      "Update Problems": 2,
+      "Language Issues": 2,
+      "Billing Issues": 1,
+      "App Crashes: App unexpectedly closes, freezes, or becomes unresponsive": 1,
+      "None": 1,
+      "Screen Issues": 1,
+      "SIM Card Issues": 1,
+      "Technical Issues": 1
+    },
+    "severity_distribution": {
+      "1": 19,
+      "2": 33,
+      "3": 419,
+      "4": 3130,
+      "5": 304
+    },
+    "critical_issues": {
+      "Login Issues": 843,
+      "App Crashes": 799,
+      "Feature Malfunctions": 406,
+      "Connectivity Issues": 293,
+      "Loading Problems": 284,
+      "Installation Problems": 203,
+      "Payment Processing": 161,
+      "Performance Issues": 130,
+      "Data Sync Issues": 119,
+      "Account Access": 73,
+      "Security Concerns": 40,
+      "Navigation Issues": 39,
+      "Integration Issues": 7,
+      "Video/Media Issues": 6,
+      "Compatibility Issues": 5,
+      "Push Notifications": 5,
+      "Settings Problems": 4,
+      "Other Technical": 4,
+      "Device Compatibility": 4,
+      "Update Issues": 3,
+      "Update Problems": 2,
+      "SIM Card Issues": 1,
+      "Billing Issues": 1,
+      "App Crashes: App unexpectedly closes, freezes, or becomes unresponsive": 1,
+      "Screen Issues": 1
+    },
+    "top_technical_keywords": {
+      "login": 714,
+      "performance": 677,
+      "authentication": 512,
+      "connectivity": 445,
+      "app crashes": 401,
+      "crashes": 371,
+      "unresponsive": 248,
+      "sign in": 236,
+      "loading": 209,
+      "uninstall": 187,
+      "account access": 172,
+      "update": 158,
+      "network problems": 151,
+      "freezes": 142,
+      "payment": 135,
+      "data sync": 131,
+      "navigation": 128,
+      "reinstall": 108,
+      "app performance": 107,
+      "app": 105
+    },
+    "app_breakdown": {
+      "Account Access": {
+        "Bell": 22,
+        "Rogers": 61
+      },
+      "App Crashes": {
+        "Bell": 153,
+        "Rogers": 662
+      },
+      "App Crashes: App unexpectedly closes, freezes, or becomes unresponsive": {
+        "Bell": 0,
+        "Rogers": 1
+      },
+      "Billing Issues": {
+        "Bell": 0,
+        "Rogers": 1
+      },
+      "Compatibility Issues": {
+        "Bell": 0,
+        "Rogers": 5
+      },
+      "Connectivity Issues": {
+        "Bell": 128,
+        "Rogers": 209
+      },
+      "Data Sync Issues": {
+        "Bell": 25,
+        "Rogers": 115
+      },
+      "Device Compatibility": {
+        "Bell": 0,
+        "Rogers": 4
+      },
+      "Feature Malfunctions": {
+        "Bell": 149,
+        "Rogers": 364
+      },
+      "Installation Problems": {
+        "Bell": 43,
+        "Rogers": 186
+      },
+      "Integration Issues": {
+        "Bell": 5,
+        "Rogers": 6
+      },
+      "Language Issues": {
+        "Bell": 2,
+        "Rogers": 0
+      },
+      "Loading Problems": {
+        "Bell": 71,
+        "Rogers": 242
+      },
+      "Login Issues": {
+        "Bell": 132,
+        "Rogers": 784
+      },
+      "Navigation Issues": {
+        "Bell": 19,
+        "Rogers": 39
+      },
+      "No Technical Issues": {
+        "Bell": 0,
+        "Rogers": 4
+      },
+      "None": {
+        "Bell": 0,
+        "Rogers": 1
+      },
+      "Other Technical": {
+        "Bell": 36,
+        "Rogers": 18
+      },
+      "Payment Processing": {
+        "Bell": 40,
+        "Rogers": 125
+      },
+      "Performance Issues": {
+        "Bell": 50,
+        "Rogers": 137
+      },
+      "Push Notifications": {
+        "Bell": 2,
+        "Rogers": 5
+      },
+      "SIM Card Issues": {
+        "Bell": 0,
+        "Rogers": 1
+      },
+      "Screen Issues": {
+        "Bell": 0,
+        "Rogers": 1
+      },
+      "Security Concerns": {
+        "Bell": 18,
+        "Rogers": 22
+      },
+      "Settings Problems": {
+        "Bell": 1,
+        "Rogers": 3
+      },
+      "Technical Issues": {
+        "Bell": 0,
+        "Rogers": 1
+      },
+      "Update Issues": {
+        "Bell": 1,
+        "Rogers": 3
+      },
+      "Update Problems": {
+        "Bell": 0,
+        "Rogers": 2
+      },
+      "Video/Media Issues": {
+        "Bell": 3,
+        "Rogers": 3
+      }
+    },
+    "platform_breakdown": {
+      "Account Access": {
+        "Android": 78,
+        "iOS": 5
+      },
+      "App Crashes": {
+        "Android": 794,
+        "iOS": 21
+      },
+      "App Crashes: App unexpectedly closes, freezes, or becomes unresponsive": {
+        "Android": 1,
+        "iOS": 0
+      },
+      "Billing Issues": {
+        "Android": 1,
+        "iOS": 0
+      },
+      "Compatibility Issues": {
+        "Android": 5,
+        "iOS": 0
+      },
+      "Connectivity Issues": {
+        "Android": 321,
+        "iOS": 16
+      },
+      "Data Sync Issues": {
+        "Android": 134,
+        "iOS": 6
+      },
+      "Device Compatibility": {
+        "Android": 4,
+        "iOS": 0
+      },
+      "Feature Malfunctions": {
+        "Android": 490,
+        "iOS": 23
+      },
+      "Installation Problems": {
+        "Android": 228,
+        "iOS": 1
+      },
+      "Integration Issues": {
+        "Android": 10,
+        "iOS": 1
+      },
+      "Language Issues": {
+        "Android": 1,
+        "iOS": 1
+      },
+      "Loading Problems": {
+        "Android": 299,
+        "iOS": 14
+      },
+      "Login Issues": {
+        "Android": 898,
+        "iOS": 18
+      },
+      "Navigation Issues": {
+        "Android": 54,
+        "iOS": 4
+      },
+      "No Technical Issues": {
+        "Android": 4,
+        "iOS": 0
+      },
+      "None": {
+        "Android": 1,
+        "iOS": 0
+      },
+      "Other Technical": {
+        "Android": 54,
+        "iOS": 0
+      },
+      "Payment Processing": {
+        "Android": 163,
+        "iOS": 2
+      },
+      "Performance Issues": {
+        "Android": 180,
+        "iOS": 7
+      },
+      "Push Notifications": {
+        "Android": 7,
+        "iOS": 0
+      },
+      "SIM Card Issues": {
+        "Android": 1,
+        "iOS": 0
+      },
+      "Screen Issues": {
+        "Android": 1,
+        "iOS": 0
+      },
+      "Security Concerns": {
+        "Android": 39,
+        "iOS": 1
+      },
+      "Settings Problems": {
+        "Android": 4,
+        "iOS": 0
+      },
+      "Technical Issues": {
+        "Android": 1,
+        "iOS": 0
+      },
+      "Update Issues": {
+        "Android": 4,
+        "iOS": 0
+      },
+      "Update Problems": {
+        "Android": 2,
+        "iOS": 0
+      },
+      "Video/Media Issues": {
+        "Android": 5,
+        "iOS": 1
+      }
+    }
+  },
+  "enhanced_billing_service_analysis": {
+    "summary": {
+      "total_reviews_analyzed": 138,
+      "average_severity": 3.93,
+      "categories_identified": 6,
+      "app_related_count": 4,
+      "service_related_count": 132,
+      "mixed_issues_count": 2
+    },
+    "category_distribution": {
+      "Service - Network Quality": 127,
+      "Service - Network Outages": 4,
+      "App - Technical Issues": 4,
+      "Service - Device/Hardware": 1,
+      "Mixed - App & Service": 1,
+      "Other": 1
+    },
+    "focus_distribution": {
+      "Service-Related": 132,
+      "App-Related": 4,
+      "Mixed": 2
+    },
+    "business_impact_distribution": {
+      "High": 117,
+      "Medium": 21
+    },
+    "actionable_by_distribution": {
+      "Service Team": 132,
+      "App Team": 4,
+      "Both Teams": 2
+    },
+    "severity_distribution": {
+      "3": 18,
+      "4": 112,
+      "5": 8
+    },
+    "app_vs_service_breakdown": {
+      "App-Related": {
+        "count": 4,
+        "avg_severity": 3.75,
+        "high_impact_count": 2
+      },
+      "Service-Related": {
+        "count": 132,
+        "avg_severity": 3.94,
+        "high_impact_count": 114
+      },
+      "Mixed": {
+        "count": 2,
+        "avg_severity": 3.5,
+        "high_impact_count": 1
+      }
+    },
+    "top_keywords": {
+      "network issues": 71,
+      "network quality": 32,
+      "coverage": 24,
+      "service quality": 20,
+      "network": 14,
+      "connectivity": 12,
+      "poor service": 12,
+      "coverage problems": 12,
+      "slow data": 11,
+      "poor signal": 9,
+      "connectivity problems": 8,
+      "slow internet": 7,
+      "quality": 7,
+      "poor coverage": 7,
+      "service disruption": 7,
+      "network coverage": 6,
+      "signal strength": 5,
+      "signal": 5,
+      "service reliability": 5,
+      "internet": 5
+    },
+    "app_breakdown": {
+      "App - Technical Issues": {
+        "Bell": 0,
+        "Rogers": 4
+      },
+      "Mixed - App & Service": {
+        "Bell": 0,
+        "Rogers": 1
+      },
+      "Other": {
+        "Bell": 0,
+        "Rogers": 1
+      },
+      "Service - Device/Hardware": {
+        "Bell": 0,
+        "Rogers": 1
+      },
+      "Service - Network Outages": {
+        "Bell": 0,
+        "Rogers": 4
+      },
+      "Service - Network Quality": {
+        "Bell": 44,
+        "Rogers": 83
+      }
+    },
+    "platform_breakdown": {
+      "App - Technical Issues": {
+        "Android": 2,
+        "iOS": 2
+      },
+      "Mixed - App & Service": {
+        "Android": 0,
+        "iOS": 1
+      },
+      "Other": {
+        "Android": 0,
+        "iOS": 1
+      },
+      "Service - Device/Hardware": {
+        "Android": 1,
+        "iOS": 0
+      },
+      "Service - Network Outages": {
+        "Android": 2,
+        "iOS": 2
+      },
+      "Service - Network Quality": {
+        "Android": 35,
+        "iOS": 92
+      }
+    }
+  },
+  "analysis_metadata": {
+    "technical_reviews_enhanced": 3905,
+    "service_reviews_enhanced": 138,
+    "app_related_total": 3913,
+    "service_related_total": 132
+  }
+}

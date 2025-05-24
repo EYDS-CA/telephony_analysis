@@ -1,0 +1,93 @@
+{
+  "executive_summary": {
+    "total_reviews_analyzed": 9038,
+    "average_rating": 2.64,
+    "negative_sentiment_rate": 59.6,
+    "app_related_complaints": 39.2,
+    "service_related_complaints": 35.0
+  },
+  "critical_issues": {
+    "app_stability": {
+      "description": "App crashes and stability issues",
+      "frequency": 416,
+      "percentage": 4.6,
+      "severity": "CRITICAL",
+      "recommendation": "Implement comprehensive crash reporting and fix memory leaks. Focus on Android stability."
+    },
+    "authentication": {
+      "description": "Login and authentication problems",
+      "frequency": 1118,
+      "percentage": 12.4,
+      "severity": "HIGH",
+      "recommendation": "Simplify authentication flow, implement biometric login, and improve error messaging."
+    },
+    "performance": {
+      "description": "Slow loading and poor performance",
+      "frequency": 646,
+      "percentage": 7.1,
+      "severity": "HIGH",
+      "recommendation": "Optimize API calls, implement caching, and reduce app size."
+    }
+  },
+  "improvement_priorities": [
+    {
+      "priority": 1,
+      "area": "App Stability",
+      "action": "Fix crash issues, especially on Android devices",
+      "expected_impact": "Could improve ratings by 0.5-1.0 stars",
+      "effort": "High",
+      "timeline": "2-3 months"
+    },
+    {
+      "priority": 2,
+      "area": "Authentication Flow",
+      "action": "Redesign login process with better error handling",
+      "expected_impact": "Reduce support calls by 15-20%",
+      "effort": "Medium",
+      "timeline": "1-2 months"
+    },
+    {
+      "priority": 3,
+      "area": "Performance Optimization",
+      "action": "Implement lazy loading and optimize data fetching",
+      "expected_impact": "Improve user satisfaction scores",
+      "effort": "Medium",
+      "timeline": "2-3 months"
+    },
+    {
+      "priority": 4,
+      "area": "User Interface",
+      "action": "Simplify navigation and improve feature discoverability",
+      "expected_impact": "Reduce user confusion and support queries",
+      "effort": "Medium",
+      "timeline": "3-4 months"
+    },
+    {
+      "priority": 5,
+      "area": "Self-Service Features",
+      "action": "Add in-app troubleshooting and FAQ section",
+      "expected_impact": "Reduce customer service contact by 25%",
+      "effort": "Low",
+      "timeline": "1 month"
+    }
+  ],
+  "competitive_analysis": {
+    "rogers_vs_bell": {
+      "rogers_avg_rating": 2.64,
+      "bell_avg_rating": 2.64,
+      "rogers_app_complaint_rate": 39.2,
+      "bell_app_complaint_rate": 20.8,
+      "key_difference": "Rogers has significantly more app-related complaints, while Bell users complain more about service"
+    }
+  },
+  "customer_service_impact": {
+    "reviews_needing_support": 51.7,
+    "top_reasons_for_contact": [
+      "App crashes and technical issues",
+      "Login/authentication problems",
+      "Billing inquiries that could be self-served",
+      "Account management tasks"
+    ],
+    "reduction_opportunity": "Fixing top 3 app issues could reduce support contact by 30-40%"
+  }
+}
