@@ -13,7 +13,9 @@
       "Bash(open dashboard.html)",
       "Bash(grep:*)",
       "Bash(python analyze_reviews.py)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": []
   }

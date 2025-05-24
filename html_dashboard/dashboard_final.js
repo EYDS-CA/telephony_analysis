@@ -11,7 +11,6 @@ let currentFilters = {
     appFilter: 'all', 
     platformFilter: 'all',
     sentimentFilter: 'all',
-    categoryTypeFilter: 'all',
     categoryFilter: 'all'
 };
 
@@ -72,9 +71,9 @@ function populateCategoryFilter() {
     }
     
     try {
-        // Get all unique final categories from the complete dataset
+        // Get all unique primary categories from the complete dataset
         const categories = [...new Set(DASHBOARD_DATA.all_reviews
-            .map(review => review.final_category)
+            .map(review => review.primary_category)
             .filter(category => category && category !== '')
         )].sort();
         
@@ -115,14 +114,9 @@ function applyDataFilters() {
         filtered = filtered.filter(review => review.claude_sentiment === currentFilters.sentimentFilter);
     }
     
-    // Apply category type filter
-    if (currentFilters.categoryTypeFilter !== 'all') {
-        filtered = filtered.filter(review => review.category_type === currentFilters.categoryTypeFilter);
-    }
-    
-    // Apply specific category filter
+    // Apply specific category filter (using enhanced categories)
     if (currentFilters.categoryFilter !== 'all') {
-        filtered = filtered.filter(review => review.final_category === currentFilters.categoryFilter);
+        filtered = filtered.filter(review => review.primary_category === currentFilters.categoryFilter);
     }
     
     // Apply date filter (year-based filtering)
@@ -741,9 +735,6 @@ function updateFilterStatus() {
     if (currentFilters.sentimentFilter !== 'all') {
         activeFilters.push(`Sentiment: ${currentFilters.sentimentFilter}`);
     }
-    if (currentFilters.categoryTypeFilter !== 'all') {
-        activeFilters.push(`Type: ${currentFilters.categoryTypeFilter}`);
-    }
     if (currentFilters.categoryFilter !== 'all') {
         activeFilters.push(`Category: ${currentFilters.categoryFilter}`);
     }
@@ -786,11 +777,10 @@ function applyFilters() {
     const appFilter = document.getElementById('appFilter')?.value || 'all';
     const platformFilter = document.getElementById('platformFilter')?.value || 'all';
     const sentimentFilter = document.getElementById('sentimentFilter')?.value || 'all';
-    const categoryTypeFilter = document.getElementById('categoryTypeFilter')?.value || 'all';
     const categoryFilter = document.getElementById('categoryFilter')?.value || 'all';
     
     // Update current filters
-    currentFilters = { dateRange, appFilter, platformFilter, sentimentFilter, categoryTypeFilter, categoryFilter };
+    currentFilters = { dateRange, appFilter, platformFilter, sentimentFilter, categoryFilter };
     
     console.log('🎯 Filters applied:', currentFilters);
     
