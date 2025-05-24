@@ -55,9 +55,6 @@ function updateAllComponents() {
     generateInsights();
     createMetricsTable();
     createIssuesTable();
-    generateAppVsServiceAnalysis();
-    generateAppAnalysis();
-    generatePlatformAnalysis();
     updateFilterStatus();
 }
 
@@ -717,109 +714,506 @@ function createMetricsTable() {
 }
 
 function generateInsights() {
-    const insightsDiv = document.getElementById('keyInsights');
-    if (!insightsDiv) return;
+    console.log('🧠 Generating strategic insights...');
     
     const filtered = applyDataFilters();
-    const isFiltered = filtered.length !== DASHBOARD_DATA.all_reviews.length;
     
-    let insights = [];
+    // Update all strategic insight sections
+    updateRogersPlatformIntelligence(filtered);
+    updateProviderComparisonIntelligence(filtered);
+    updateCriticalUserFlows(filtered);
+    updateReviewEvidence(filtered);
+    updateKeyIntelligenceFindings(filtered);
+}
+
+function updateRogersPlatformIntelligence(filteredData) {
+    const container = document.getElementById('rogersPlatformIntelligence');
+    if (!container) return;
     
-    if (isFiltered && filtered.length > 0) {
-        // Generate insights based on filtered data
-        const negativeCount = filtered.filter(r => r.claude_sentiment === 'Negative').length;
-        const negativePct = Math.round((negativeCount / filtered.length) * 100);
-        const avgRating = (filtered.reduce((sum, r) => sum + r.rating, 0) / filtered.length).toFixed(1);
-        
-        const topCategory = filtered.reduce((acc, review) => {
-            const category = review.primary_category || 'Unknown';
-            acc[category] = (acc[category] || 0) + 1;
-            return acc;
-        }, {});
-        
-        const topCategoryName = Object.keys(topCategory).reduce((a, b) => topCategory[a] > topCategory[b] ? a : b);
-        const topCategoryCount = topCategory[topCategoryName];
-        
-        insights = [
-            {
-                icon: '🔍',
-                title: 'Filtered Analysis',
-                content: `Showing ${filtered.length} reviews matching your filters from our complete dataset of ${DASHBOARD_DATA.all_reviews.length} reviews.`
-            },
-            {
-                icon: '📊',
-                title: 'Filtered Sentiment Impact',
-                content: `${negativePct}% negative sentiment in filtered results compared to ${Math.round((DASHBOARD_DATA.summary.sentiment_distribution.Negative / DASHBOARD_DATA.summary.total_reviews) * 100)}% overall - ${negativePct > 60 ? 'worse than average' : 'better than average'}.`
-            },
-            {
-                icon: '⭐',
-                title: 'Filtered Rating Analysis',
-                content: `Average rating: ${avgRating}/5 in filtered results vs ${DASHBOARD_DATA.summary.average_rating}/5 overall - ${parseFloat(avgRating) < DASHBOARD_DATA.summary.average_rating ? 'below' : 'above'} average performance.`
-            },
-            {
-                icon: '🎯',
-                title: 'Top Issue in Selection',
-                content: `"${topCategoryName}" dominates with ${topCategoryCount} reports (${Math.round((topCategoryCount/filtered.length)*100)}%) in your filtered selection.`
-            },
-            {
-                icon: '💡',
-                title: 'Filter Insight',
-                content: `This filter combination represents ${Math.round((filtered.length/DASHBOARD_DATA.all_reviews.length)*100)}% of our complete dataset, providing ${filtered.length < 10 ? 'limited but focused' : 'robust'} insights.`
-            }
-        ];
-    } else if (isFiltered && filtered.length === 0) {
-        insights = [
-            {
-                icon: '🔍',
-                title: 'No Matching Reviews',
-                content: 'No reviews in our sample match your current filter combination. Try adjusting the filters to explore different data segments.'
-            },
-            {
-                icon: '💡',
-                title: 'Suggestion',
-                content: 'Consider broadening your search by removing one or more filters, or try different combinations to find relevant insights.'
-            }
-        ];
-    } else {
-        // Default insights for full dataset
-        insights = [
-            {
-                icon: '📊',
-                title: 'Complete Analysis Coverage',
-                content: `Comprehensive analysis of ${DASHBOARD_DATA.summary.total_reviews.toLocaleString()} customer reviews with 100% AI categorization across both telecom providers.`
-            },
-            {
-                icon: '🚨',
-                title: 'Critical Issue Priority', 
-                content: `Technical Issues lead with ${DASHBOARD_DATA.summary.category_distribution['Technical Issues'].toLocaleString()} reports (${Math.round((DASHBOARD_DATA.summary.category_distribution['Technical Issues'] / DASHBOARD_DATA.summary.total_reviews) * 100)}%) - urgent stability improvements needed.`
-            },
-            {
-                icon: '📱',
-                title: 'Platform Performance Gap',
-                content: `Significant iOS vs Android disparity: ${DASHBOARD_DATA.summary.platform_comparison.iOS.negative_pct}% negative on iOS vs ${DASHBOARD_DATA.summary.platform_comparison.Android.negative_pct}% on Android - iOS needs immediate attention.`
-            },
-            {
-                icon: '📉',
-                title: 'Customer Satisfaction Alert',
-                content: `Average ${DASHBOARD_DATA.summary.average_rating}/5 rating across ${DASHBOARD_DATA.summary.total_reviews.toLocaleString()} reviews indicates substantial improvement opportunities for both providers.`
-            },
-            {
-                icon: '🏆',
-                title: 'Market Volume Analysis',
-                content: `Rogers dominates review volume with ${DASHBOARD_DATA.summary.rogers_reviews.toLocaleString()} reviews (${Math.round((DASHBOARD_DATA.summary.rogers_reviews/DASHBOARD_DATA.summary.total_reviews)*100)}%) vs Bell's ${DASHBOARD_DATA.summary.bell_reviews.toLocaleString()}.`
-            }
-        ];
+    // Filter for Rogers only
+    const rogersData = filteredData.filter(r => r.app_name === 'Rogers');
+    const rogersIOS = rogersData.filter(r => r.platform === 'iOS');
+    const rogersAndroid = rogersData.filter(r => r.platform === 'Android');
+    
+    if (rogersData.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #666;">No Rogers reviews match current filters</p>';
+        return;
     }
     
-    insightsDiv.innerHTML = insights.map(insight => 
-        `<div style="background: white; margin: 1rem 0; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #FFE600; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
-                <span style="font-size: 1.5rem; margin-right: 0.5rem;">${insight.icon}</span>
-                <h4 style="margin: 0; color: #0f3460;">${insight.title}</h4>
+    // Calculate metrics for each platform
+    const iosMetrics = calculatePlatformMetrics(rogersIOS);
+    const androidMetrics = calculatePlatformMetrics(rogersAndroid);
+    
+    // Get top issues for each platform
+    const iosIssues = getTopIssues(rogersIOS, 5);
+    const androidIssues = getTopIssues(rogersAndroid, 5);
+    
+    container.innerHTML = `
+        <div class="grid grid-2" style="margin-bottom: 2rem;">
+            <div class="platform-analysis-card" style="border: 2px solid #000; background: #f8f8f8; padding: 1.5rem; border-radius: 12px;">
+                <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                    <i class="fab fa-apple" style="font-size: 1.5rem;"></i> iOS Analysis
+                </h4>
+                <div class="metrics-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; font-weight: 700; color: #e50000;">${iosMetrics.count}</div>
+                        <div style="font-size: 0.85rem; color: #666;">Reviews</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; font-weight: 700; color: ${iosMetrics.negativePct > 60 ? '#e50000' : '#666'};">${iosMetrics.negativePct}%</div>
+                        <div style="font-size: 0.85rem; color: #666;">Negative</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; font-weight: 700; color: #666;">${iosMetrics.avgRating}/5</div>
+                        <div style="font-size: 0.85rem; color: #666;">Avg Rating</div>
+                    </div>
+                </div>
+                <h5 style="margin-bottom: 0.5rem;">Top iOS Issues:</h5>
+                <ul style="list-style: none; padding: 0;">
+                    ${iosIssues.map(issue => `
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid #e0e0e0;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>${issue.category}</span>
+                                <span style="color: #666; font-size: 0.9rem;">${issue.count} (${issue.percentage}%)</span>
+                            </div>
+                        </li>
+                    `).join('')}
+                </ul>
             </div>
-            <p style="margin: 0; line-height: 1.5;">${insight.content}</p>
-        </div>`
-    ).join('');
+            
+            <div class="platform-analysis-card" style="border: 2px solid #3DDC84; background: #f8f8f8; padding: 1.5rem; border-radius: 12px;">
+                <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                    <i class="fab fa-android" style="font-size: 1.5rem; color: #3DDC84;"></i> Android Analysis
+                </h4>
+                <div class="metrics-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; font-weight: 700; color: #e50000;">${androidMetrics.count}</div>
+                        <div style="font-size: 0.85rem; color: #666;">Reviews</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; font-weight: 700; color: ${androidMetrics.negativePct > 60 ? '#e50000' : '#666'};">${androidMetrics.negativePct}%</div>
+                        <div style="font-size: 0.85rem; color: #666;">Negative</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; font-weight: 700; color: #666;">${androidMetrics.avgRating}/5</div>
+                        <div style="font-size: 0.85rem; color: #666;">Avg Rating</div>
+                    </div>
+                </div>
+                <h5 style="margin-bottom: 0.5rem;">Top Android Issues:</h5>
+                <ul style="list-style: none; padding: 0;">
+                    ${androidIssues.map(issue => `
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid #e0e0e0;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>${issue.category}</span>
+                                <span style="color: #666; font-size: 0.9rem;">${issue.count} (${issue.percentage}%)</span>
+                            </div>
+                        </li>
+                    `).join('')}
+                </ul>
+            </div>
+        </div>
+        
+        <div style="background: #fffbeb; border: 1px solid #fbbf24; padding: 1rem; border-radius: 8px;">
+            <h5 style="margin-bottom: 0.5rem;"><i class="fas fa-chart-line"></i> Platform Intelligence Summary</h5>
+            <p style="margin: 0;">
+                ${androidMetrics.count > iosMetrics.count ? 
+                    `Android dominates with ${Math.round(androidMetrics.count / (androidMetrics.count + iosMetrics.count) * 100)}% of Rogers reviews. ` :
+                    `iOS and Android have similar review volumes. `
+                }
+                ${Math.abs(androidMetrics.negativePct - iosMetrics.negativePct) > 10 ?
+                    `${androidMetrics.negativePct > iosMetrics.negativePct ? 'Android' : 'iOS'} users are significantly more dissatisfied (${Math.abs(androidMetrics.negativePct - iosMetrics.negativePct)}% difference). ` :
+                    `Both platforms show similar satisfaction levels. `
+                }
+                ${compareTopIssues(iosIssues[0], androidIssues[0])}
+            </p>
+        </div>
+    `;
+}
+
+function calculatePlatformMetrics(reviews) {
+    const count = reviews.length;
+    const negativeCount = reviews.filter(r => r.claude_sentiment === 'Negative').length;
+    const avgRating = count > 0 ? (reviews.reduce((sum, r) => sum + parseFloat(r.rating), 0) / count).toFixed(1) : '0.0';
+    
+    return {
+        count,
+        negativePct: count > 0 ? Math.round(negativeCount / count * 100) : 0,
+        avgRating
+    };
+}
+
+function getTopIssues(reviews, limit = 5) {
+    const issueCounts = {};
+    reviews.forEach(review => {
+        const category = review.primary_category || 'Unknown';
+        if (category && category.trim() !== '' && !category.match(/^[\d.-]+$/)) {
+            issueCounts[category] = (issueCounts[category] || 0) + 1;
+        }
+    });
+    
+    return Object.entries(issueCounts)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, limit)
+        .map(([category, count]) => ({
+            category,
+            count,
+            percentage: reviews.length > 0 ? Math.round(count / reviews.length * 100) : 0
+        }));
+}
+
+function compareTopIssues(iosTop, androidTop) {
+    if (!iosTop || !androidTop) return '';
+    if (iosTop.category === androidTop.category) {
+        return `Both platforms share "${iosTop.category}" as their top concern.`;
+    }
+    return `iOS users primarily face "${iosTop.category}" issues while Android users struggle with "${androidTop.category}".`;
+}
+
+function updateProviderComparisonIntelligence(filteredData) {
+    const container = document.getElementById('providerComparisonIntelligence');
+    if (!container) return;
+    
+    const rogersData = filteredData.filter(r => r.app_name === 'Rogers');
+    const bellData = filteredData.filter(r => r.app_name === 'Bell');
+    
+    if (rogersData.length === 0 && bellData.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #666;">No reviews match current filters</p>';
+        return;
+    }
+    
+    const rogersIssues = getTopIssues(rogersData, 8);
+    const bellIssues = getTopIssues(bellData, 8);
+    
+    // Categorize issues
+    const categorizeIssue = (category) => {
+        const appRelated = ['Technical Issues', 'User Experience', 'Features', 'Performance', 'Login Issues', 'App Crashes'];
+        const serviceRelated = ['Billing', 'Customer Support', 'Network Issues', 'Account Management'];
+        
+        if (appRelated.some(term => category.includes(term))) return 'app';
+        if (serviceRelated.some(term => category.includes(term))) return 'service';
+        return 'other';
+    };
+    
+    const rogersAppIssues = rogersIssues.filter(i => categorizeIssue(i.category) === 'app');
+    const rogersServiceIssues = rogersIssues.filter(i => categorizeIssue(i.category) === 'service');
+    const bellAppIssues = bellIssues.filter(i => categorizeIssue(i.category) === 'app');
+    const bellServiceIssues = bellIssues.filter(i => categorizeIssue(i.category) === 'service');
+    
+    container.innerHTML = `
+        <div class="comparison-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+            <div style="background: #ffe5e5; padding: 1.5rem; border-radius: 12px; border: 2px solid #e50000;">
+                <h4 style="color: #e50000; margin-bottom: 1rem;">
+                    <i class="fas fa-mobile-alt"></i> Rogers Customer Complaints
+                </h4>
+                <div style="margin-bottom: 1rem;">
+                    <h5 style="color: #666; font-size: 0.95rem; margin-bottom: 0.5rem;">App-Related Issues:</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        ${rogersAppIssues.slice(0, 4).map(issue => `
+                            <li style="padding: 0.25rem 0; font-size: 0.9rem;">
+                                • ${issue.category} (${issue.percentage}%)
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+                <div>
+                    <h5 style="color: #666; font-size: 0.95rem; margin-bottom: 0.5rem;">Service-Related Issues:</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        ${rogersServiceIssues.slice(0, 4).map(issue => `
+                            <li style="padding: 0.25rem 0; font-size: 0.9rem;">
+                                • ${issue.category} (${issue.percentage}%)
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="background: #e5f0ff; padding: 1.5rem; border-radius: 12px; border: 2px solid #0066cc;">
+                <h4 style="color: #0066cc; margin-bottom: 1rem;">
+                    <i class="fas fa-phone"></i> Bell Customer Complaints
+                </h4>
+                <div style="margin-bottom: 1rem;">
+                    <h5 style="color: #666; font-size: 0.95rem; margin-bottom: 0.5rem;">App-Related Issues:</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        ${bellAppIssues.slice(0, 4).map(issue => `
+                            <li style="padding: 0.25rem 0; font-size: 0.9rem;">
+                                • ${issue.category} (${issue.percentage}%)
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+                <div>
+                    <h5 style="color: #666; font-size: 0.95rem; margin-bottom: 0.5rem;">Service-Related Issues:</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        ${bellServiceIssues.slice(0, 4).map(issue => `
+                            <li style="padding: 0.25rem 0; font-size: 0.9rem;">
+                                • ${issue.category} (${issue.percentage}%)
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: #f3f4f6; padding: 1rem; border-radius: 8px;">
+            <h5 style="margin-bottom: 0.5rem;"><i class="fas fa-balance-scale"></i> Comparison Intelligence</h5>
+            <p style="margin: 0;">
+                ${rogersAppIssues.length > bellAppIssues.length ? 
+                    'Rogers customers report more diverse app-related issues, indicating broader technical challenges. ' :
+                    'Bell customers face similar app complexity. '
+                }
+                ${rogersServiceIssues.length > bellServiceIssues.length ?
+                    'Rogers also has more service-related complaints. ' :
+                    'Bell has more service-related complaints. '
+                }
+                ${analyzeComplaintPatterns(rogersIssues[0], bellIssues[0])}
+            </p>
+        </div>
+    `;
+}
+
+function analyzeComplaintPatterns(rogersTop, bellTop) {
+    if (!rogersTop || !bellTop) return '';
+    
+    const rogersType = rogersTop.category.includes('Technical') || rogersTop.category.includes('App') ? 'technical' : 'service';
+    const bellType = bellTop.category.includes('Technical') || bellTop.category.includes('App') ? 'technical' : 'service';
+    
+    if (rogersType === 'technical' && bellType === 'service') {
+        return 'Rogers faces primarily technical/app challenges while Bell customers are more concerned with service quality.';
+    } else if (rogersType === 'service' && bellType === 'technical') {
+        return 'Bell struggles with technical issues while Rogers customers focus on service concerns.';
+    }
+    return 'Both providers face similar challenge distributions.';
+}
+
+function updateCriticalUserFlows(filteredData) {
+    const container = document.getElementById('criticalUserFlows');
+    if (!container) return;
+    
+    // Define critical user flows in telecom apps
+    const userFlows = [
+        {
+            name: 'Bill Payment & Management',
+            keywords: ['bill', 'payment', 'pay', 'invoice', 'charge'],
+            icon: '💳',
+            description: 'View bills, make payments, manage payment methods'
+        },
+        {
+            name: 'Usage Monitoring',
+            keywords: ['usage', 'data', 'minutes', 'balance', 'limit'],
+            icon: '📊',
+            description: 'Track data usage, minutes, and plan limits'
+        },
+        {
+            name: 'Account Access',
+            keywords: ['login', 'sign in', 'password', 'access', 'authentication'],
+            icon: '🔐',
+            description: 'Login, authentication, and secure access'
+        },
+        {
+            name: 'Plan Management',
+            keywords: ['plan', 'upgrade', 'change', 'add-on', 'features'],
+            icon: '📋',
+            description: 'View and modify plans, add features'
+        },
+        {
+            name: 'Customer Support',
+            keywords: ['support', 'help', 'contact', 'chat', 'issue'],
+            icon: '🤝',
+            description: 'Get help and resolve issues'
+        }
+    ];
+    
+    // Analyze each flow
+    const flowAnalysis = userFlows.map(flow => {
+        const relevantReviews = filteredData.filter(review => {
+            const text = (review.text + ' ' + review.claude_summary).toLowerCase();
+            return flow.keywords.some(keyword => text.includes(keyword));
+        });
+        
+        const negativeCount = relevantReviews.filter(r => r.claude_sentiment === 'Negative').length;
+        const avgRating = relevantReviews.length > 0 ? 
+            (relevantReviews.reduce((sum, r) => sum + parseFloat(r.rating), 0) / relevantReviews.length).toFixed(1) : 'N/A';
+        
+        return {
+            ...flow,
+            mentions: relevantReviews.length,
+            negativePercentage: relevantReviews.length > 0 ? Math.round(negativeCount / relevantReviews.length * 100) : 0,
+            avgRating,
+            impactScore: relevantReviews.length * (negativeCount / relevantReviews.length || 0)
+        };
+    });
+    
+    // Sort by impact
+    flowAnalysis.sort((a, b) => b.impactScore - a.impactScore);
+    
+    container.innerHTML = `
+        <div style="margin-bottom: 1rem;">
+            ${flowAnalysis.map((flow, index) => `
+                <div style="background: ${index === 0 ? '#fee2e2' : '#f3f4f6'}; padding: 1.5rem; margin-bottom: 1rem; border-radius: 12px; border-left: 4px solid ${index === 0 ? '#dc2626' : '#6b7280'};">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div>
+                            <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <span style="font-size: 1.5rem;">${flow.icon}</span>
+                                ${flow.name}
+                                ${index === 0 ? '<span style="background: #dc2626; color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; margin-left: 0.5rem;">CRITICAL</span>' : ''}
+                            </h4>
+                            <p style="color: #666; margin-bottom: 0.5rem; font-size: 0.95rem;">${flow.description}</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 1.2rem; font-weight: 700; color: ${flow.negativePercentage > 60 ? '#dc2626' : '#333'};">
+                                ${flow.negativePercentage}% negative
+                            </div>
+                            <div style="font-size: 0.85rem; color: #666;">
+                                ${flow.mentions} mentions | ${flow.avgRating}/5 avg
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+        
+        <div style="background: #fffbeb; border: 1px solid #fbbf24; padding: 1rem; border-radius: 8px;">
+            <h5 style="margin-bottom: 0.5rem;"><i class="fas fa-exclamation-triangle"></i> Critical Flow Analysis</h5>
+            <p style="margin: 0;">
+                "${flowAnalysis[0].name}" is the most problematic user flow with ${flowAnalysis[0].negativePercentage}% negative sentiment. 
+                ${flowAnalysis[0].mentions > 100 ? 'This high-volume issue significantly impacts user experience. ' : ''}
+                ${flowAnalysis.filter(f => f.negativePercentage > 50).length} out of ${flowAnalysis.length} critical flows show majority negative sentiment.
+            </p>
+        </div>
+    `;
+}
+
+function updateReviewEvidence(filteredData) {
+    const container = document.getElementById('reviewEvidence');
+    if (!container) return;
+    
+    // Get top categories
+    const topCategories = getTopIssues(filteredData, 3);
+    
+    container.innerHTML = `
+        <div style="margin-bottom: 1rem;">
+            ${topCategories.map(category => {
+                // Get example reviews for this category
+                const categoryReviews = filteredData
+                    .filter(r => r.primary_category === category.category && r.claude_sentiment === 'Negative')
+                    .sort((a, b) => parseFloat(b.thumbs_up || 0) - parseFloat(a.thumbs_up || 0))
+                    .slice(0, 2);
+                
+                return `
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="margin-bottom: 1rem; color: #333;">
+                            <i class="fas fa-tag"></i> ${category.category} (${category.count} reviews)
+                        </h4>
+                        ${categoryReviews.map(review => `
+                            <div style="background: #f9fafb; border: 1px solid #e5e7eb; padding: 1rem; margin-bottom: 0.75rem; border-radius: 8px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.85rem; color: #666;">
+                                    <span><strong>${review.app_name}</strong> - ${review.platform}</span>
+                                    <span>★ ${review.rating}/5 | ${new Date(review.date).toLocaleDateString()}</span>
+                                </div>
+                                <p style="margin: 0; font-style: italic; line-height: 1.5;">
+                                    "${review.text.length > 200 ? review.text.substring(0, 200) + '...' : review.text}"
+                                </p>
+                                ${review.thumbs_up > 0 ? `<div style="margin-top: 0.5rem; font-size: 0.85rem; color: #666;">👍 ${review.thumbs_up} found this helpful</div>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }).join('')}
+        </div>
+    `;
+}
+
+function updateKeyIntelligenceFindings(filteredData) {
+    const container = document.getElementById('keyIntelligenceFindings');
+    if (!container) return;
+    
+    // Calculate key metrics
+    const rogersData = filteredData.filter(r => r.app_name === 'Rogers');
+    const bellData = filteredData.filter(r => r.app_name === 'Bell');
+    
+    const findings = generateIntelligenceFindings(filteredData, rogersData, bellData);
+    
+    container.innerHTML = `
+        <div style="display: grid; gap: 1rem;">
+            ${findings.map((finding, index) => `
+                <div style="background: ${index === 0 ? '#fee2e2' : '#f3f4f6'}; padding: 1rem; border-radius: 8px; border-left: 4px solid ${finding.priority === 'high' ? '#dc2626' : '#6b7280'};">
+                    <h5 style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 1.2rem;">${finding.icon}</span>
+                        ${finding.title}
+                    </h5>
+                    <p style="margin: 0; line-height: 1.5;">${finding.content}</p>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+function generateIntelligenceFindings(allData, rogersData, bellData) {
+    const findings = [];
+    
+    // App quality comparison
+    const rogersAppIssues = rogersData.filter(r => ['Technical Issues', 'App Crashes', 'Performance'].includes(r.primary_category)).length;
+    const bellAppIssues = bellData.filter(r => ['Technical Issues', 'App Crashes', 'Performance'].includes(r.primary_category)).length;
+    
+    const rogersAppRate = rogersData.length > 0 ? rogersAppIssues / rogersData.length : 0;
+    const bellAppRate = bellData.length > 0 ? bellAppIssues / bellData.length : 0;
+    
+    if (rogersAppRate > bellAppRate * 1.5) {
+        findings.push({
+            icon: '🚨',
+            title: 'Rogers App Quality Gap',
+            content: `Rogers experiences ${Math.round(rogersAppRate * 100)}% technical issues compared to Bell's ${Math.round(bellAppRate * 100)}%. This significant gap indicates systematic app quality problems.`,
+            priority: 'high'
+        });
+    }
+    
+    // Authentication crisis
+    const authIssues = allData.filter(r => r.primary_category === 'Login Issues' || r.primary_category === 'Authentication').length;
+    const authRate = authIssues / allData.length;
+    
+    if (authRate > 0.1) {
+        findings.push({
+            icon: '🔐',
+            title: 'Authentication Barrier',
+            content: `${Math.round(authRate * 100)}% of users face login/authentication issues, creating a critical barrier to app usage and forcing customers to seek support.`,
+            priority: 'high'
+        });
+    }
+    
+    // Platform disparity
+    const androidNeg = allData.filter(r => r.platform === 'Android' && r.claude_sentiment === 'Negative').length;
+    const iosNeg = allData.filter(r => r.platform === 'iOS' && r.claude_sentiment === 'Negative').length;
+    const androidTotal = allData.filter(r => r.platform === 'Android').length;
+    const iosTotal = allData.filter(r => r.platform === 'iOS').length;
+    
+    const androidNegRate = androidTotal > 0 ? androidNeg / androidTotal : 0;
+    const iosNegRate = iosTotal > 0 ? iosNeg / iosTotal : 0;
+    
+    if (Math.abs(androidNegRate - iosNegRate) > 0.1) {
+        findings.push({
+            icon: '📱',
+            title: 'Platform Experience Gap',
+            content: `${androidNegRate > iosNegRate ? 'Android' : 'iOS'} users report ${Math.round(Math.abs(androidNegRate - iosNegRate) * 100)}% more negative experiences, indicating platform-specific optimization needs.`,
+            priority: 'medium'
+        });
+    }
+    
+    // Self-service opportunity
+    const supportMentions = allData.filter(r => {
+        const text = (r.text + ' ' + r.claude_summary).toLowerCase();
+        return text.includes('support') || text.includes('help') || text.includes('contact');
+    }).length;
+    
+    if (supportMentions / allData.length > 0.15) {
+        findings.push({
+            icon: '💡',
+            title: 'Self-Service Gap',
+            content: `${Math.round(supportMentions / allData.length * 100)}% of reviews mention needing support, indicating users cannot complete tasks independently in the app.`,
+            priority: 'medium'
+        });
+    }
+    
+    return findings;
 }
 
 function updateFilterStatus() {
