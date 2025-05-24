@@ -27,6 +27,13 @@ function initializeDashboard() {
     
     console.log(`📊 Dataset: ${DASHBOARD_DATA.summary.total_reviews.toLocaleString()} total reviews, ${DASHBOARD_DATA.all_reviews.length} available`);
     
+    // Ensure all_reviews array exists and has data
+    if (!DASHBOARD_DATA.all_reviews || DASHBOARD_DATA.all_reviews.length === 0) {
+        console.error('❌ No review data available in DASHBOARD_DATA.all_reviews');
+        showError('No review data available');
+        return;
+    }
+    
     try {
         // Hide loading, show dashboard
         document.getElementById('loading').style.display = 'none';
@@ -37,6 +44,12 @@ function initializeDashboard() {
         
         // Update all components with full data initially
         updateAllComponents();
+        
+        // Ensure Strategic Insights are generated even if tab is not active
+        setTimeout(() => {
+            console.log('🔄 Ensuring Strategic Insights are populated...');
+            generateInsights();
+        }, 100);
         
         console.log('✅ Dashboard initialization complete');
         
@@ -716,24 +729,52 @@ function createMetricsTable() {
 function generateInsights() {
     console.log('🧠 Generating strategic insights...');
     
-    const filtered = applyDataFilters();
+    // Check if all filters are set to 'all' (no filtering)
+    const noFiltersApplied = currentFilters.dateRange === 'all' && 
+                             currentFilters.appFilter === 'all' && 
+                             currentFilters.platformFilter === 'all' && 
+                             currentFilters.sentimentFilter === 'all' && 
+                             currentFilters.categoryFilter === 'all';
+    
+    // Use all data if no filters are applied, otherwise use filtered data
+    let dataToUse;
+    if (noFiltersApplied) {
+        dataToUse = DASHBOARD_DATA.all_reviews;
+        console.log(`📊 Using all data: ${dataToUse.length} reviews`);
+    } else {
+        dataToUse = applyDataFilters();
+        console.log(`📊 Using filtered data: ${dataToUse.length} reviews`);
+    }
+    
+    // Ensure we have data to work with
+    if (!dataToUse || dataToUse.length === 0) {
+        console.warn('⚠️ No data available for insights generation');
+        dataToUse = DASHBOARD_DATA.all_reviews;
+    }
     
     // Update all strategic insight sections
-    updateRogersPlatformIntelligence(filtered);
-    updateProviderComparisonIntelligence(filtered);
-    updateCriticalUserFlows(filtered);
-    updateReviewEvidence(filtered);
-    updateKeyIntelligenceFindings(filtered);
+    updateRogersPlatformIntelligence(dataToUse);
+    updateProviderComparisonIntelligence(dataToUse);
+    updateCriticalUserFlows(dataToUse);
+    updateReviewEvidence(dataToUse);
+    updateKeyIntelligenceFindings(dataToUse);
 }
 
 function updateRogersPlatformIntelligence(filteredData) {
     const container = document.getElementById('rogersPlatformIntelligence');
-    if (!container) return;
+    if (!container) {
+        console.error('❌ rogersPlatformIntelligence container not found');
+        return;
+    }
+    
+    console.log(`📱 Updating Rogers platform intelligence with ${filteredData.length} reviews`);
     
     // Filter for Rogers only
     const rogersData = filteredData.filter(r => r.app_name === 'Rogers');
     const rogersIOS = rogersData.filter(r => r.platform === 'iOS');
     const rogersAndroid = rogersData.filter(r => r.platform === 'Android');
+    
+    console.log(`Rogers data: ${rogersData.length} total, iOS: ${rogersIOS.length}, Android: ${rogersAndroid.length}`);
     
     if (rogersData.length === 0) {
         container.innerHTML = '<p style="text-align: center; color: #666;">No Rogers reviews match current filters</p>';
