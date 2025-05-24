@@ -4,6 +4,22 @@ console.log('🚀 Loading Dashboard with Complete Dataset...');
 // Load the comprehensive dashboard data
 const DASHBOARD_DATA = COMPLETE_DASHBOARD_DATA;
 
+// Log initial data load
+console.log('📊 Dashboard data loaded:', {
+    totalReviews: DASHBOARD_DATA.summary.total_reviews,
+    allReviewsLength: DASHBOARD_DATA.all_reviews ? DASHBOARD_DATA.all_reviews.length : 0,
+    platforms: DASHBOARD_DATA.all_reviews ? 
+        DASHBOARD_DATA.all_reviews.reduce((acc, r) => {
+            acc[r.platform] = (acc[r.platform] || 0) + 1;
+            return acc;
+        }, {}) : {},
+    apps: DASHBOARD_DATA.all_reviews ?
+        DASHBOARD_DATA.all_reviews.reduce((acc, r) => {
+            acc[r.app_name] = (acc[r.app_name] || 0) + 1;
+            return acc;
+        }, {}) : {}
+});
+
 // Global variables for filtering
 let filteredData = DASHBOARD_DATA.all_reviews;
 let currentFilters = {
@@ -44,12 +60,6 @@ function initializeDashboard() {
         
         // Update all components with full data initially
         updateAllComponents();
-        
-        // Ensure Strategic Insights are generated even if tab is not active
-        setTimeout(() => {
-            console.log('🔄 Ensuring Strategic Insights are populated...');
-            generateInsights();
-        }, 100);
         
         console.log('✅ Dashboard initialization complete');
         
@@ -109,33 +119,52 @@ function applyDataFilters() {
     // Start with all complete data
     let filtered = [...DASHBOARD_DATA.all_reviews];
     
+    console.log(`🔍 Starting with ${filtered.length} reviews`);
+    
     // Apply app filter
     if (currentFilters.appFilter !== 'all') {
         filtered = filtered.filter(review => review.app_name === currentFilters.appFilter);
+        console.log(`   After app filter (${currentFilters.appFilter}): ${filtered.length} reviews`);
     }
     
     // Apply platform filter
     if (currentFilters.platformFilter !== 'all') {
         filtered = filtered.filter(review => review.platform === currentFilters.platformFilter);
+        console.log(`   After platform filter (${currentFilters.platformFilter}): ${filtered.length} reviews`);
     }
     
     // Apply sentiment filter
     if (currentFilters.sentimentFilter !== 'all') {
         filtered = filtered.filter(review => review.claude_sentiment === currentFilters.sentimentFilter);
+        console.log(`   After sentiment filter (${currentFilters.sentimentFilter}): ${filtered.length} reviews`);
     }
     
     // Apply specific category filter (using enhanced categories)
     if (currentFilters.categoryFilter !== 'all') {
         filtered = filtered.filter(review => review.primary_category === currentFilters.categoryFilter);
+        console.log(`   After category filter (${currentFilters.categoryFilter}): ${filtered.length} reviews`);
     }
     
     // Apply date filter (year-based filtering)
     if (currentFilters.dateRange !== 'all') {
-        filtered = filtered.filter(review => review.year === currentFilters.dateRange);
+        // Parse year from date string if year property doesn't exist
+        filtered = filtered.filter(review => {
+            const year = review.year || (review.date ? new Date(review.date).getFullYear().toString() : null);
+            return year === currentFilters.dateRange;
+        });
+        console.log(`   After date filter (${currentFilters.dateRange}): ${filtered.length} reviews`);
     }
     
     filteredData = filtered;
-    console.log(`🔍 Filtered to ${filtered.length} reviews from ${DASHBOARD_DATA.all_reviews.length} total reviews`);
+    console.log(`🔍 Final filtered result: ${filtered.length} reviews from ${DASHBOARD_DATA.all_reviews.length} total reviews`);
+    
+    // Check platform distribution
+    const platforms = {};
+    filtered.forEach(r => {
+        platforms[r.platform] = (platforms[r.platform] || 0) + 1;
+    });
+    console.log('   Platform distribution:', platforms);
+    
     return filtered;
 }
 
@@ -1149,12 +1178,12 @@ function updateReviewEvidence(filteredData) {
                             <div style="background: #f9fafb; border: 1px solid #e5e7eb; padding: 1rem; margin-bottom: 0.75rem; border-radius: 8px;">
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.85rem; color: #666;">
                                     <span><strong>${review.app_name}</strong> - ${review.platform}</span>
-                                    <span>★ ${review.rating}/5 | ${new Date(review.date).toLocaleDateString()}</span>
+                                    <span>★ ${review.rating}/5 | ${review.date ? new Date(review.date).toLocaleDateString() : 'No date'}</span>
                                 </div>
                                 <p style="margin: 0; font-style: italic; line-height: 1.5;">
-                                    "${review.text.length > 200 ? review.text.substring(0, 200) + '...' : review.text}"
+                                    "${review.text && review.text.length > 200 ? review.text.substring(0, 200) + '...' : review.text || 'No review text'}"
                                 </p>
-                                ${review.thumbs_up > 0 ? `<div style="margin-top: 0.5rem; font-size: 0.85rem; color: #666;">👍 ${review.thumbs_up} found this helpful</div>` : ''}
+                                ${review.thumbs_up && review.thumbs_up > 0 ? `<div style="margin-top: 0.5rem; font-size: 0.85rem; color: #666;">👍 ${review.thumbs_up} found this helpful</div>` : ''}
                             </div>
                         `).join('')}
                     </div>
@@ -1299,13 +1328,28 @@ function showError(message) {
     `;
 }
 
-// Tab functionality
-function showTab(tabName) {
+// Tab functionality - make it global
+window.showTab = function(tabName) {
     document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
     document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
     
     document.getElementById(tabName)?.classList.add('active');
-    event?.target.classList.add('active');
+    
+    // Find and activate the clicked tab button
+    const tabButtons = document.querySelectorAll('.nav-tab');
+    tabButtons.forEach(button => {
+        if (button.onclick && button.onclick.toString().includes(tabName)) {
+            button.classList.add('active');
+        }
+    });
+    
+    // Generate insights when insights tab is shown
+    if (tabName === 'insights') {
+        console.log('📊 Insights tab activated, refreshing insights...');
+        setTimeout(() => {
+            generateInsights();
+        }, 50);
+    }
 }
 
 // Enhanced Filter functionality
