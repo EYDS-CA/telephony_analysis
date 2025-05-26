@@ -19,7 +19,8 @@
       "Bash(open dashboard.html)",
       "Bash(find:*)",
       "Bash(rm:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(awk:*)"
     ],
     "deny": []
   }
