@@ -722,7 +722,7 @@ function loadReviews() {
         categoryCell.style.color = '#64748b';
         
         const textCell = row.insertCell(5);
-        textCell.textContent = review.text.length > 200 ? review.text.substring(0, 200) + '...' : review.text;
+        textCell.textContent = review.text && review.text.length > 200 ? review.text.substring(0, 200) + '...' : (review.text || '');
     });
 }
 
