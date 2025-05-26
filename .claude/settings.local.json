@@ -20,7 +20,10 @@
       "Bash(find:*)",
       "Bash(rm:*)",
       "Bash(ls:*)",
-      "Bash(awk:*)"
+      "Bash(awk:*)",
+      "Bash(pip3 install:*)",
+      "Bash(source:*)",
+      "Bash(python:*)"
     ],
     "deny": []
   }
