@@ -23,7 +23,10 @@
       "Bash(awk:*)",
       "Bash(pip3 install:*)",
       "Bash(source:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(head:*)",
+      "Bash(wc:*)",
+      "Bash(file:*)"
     ],
     "deny": []
   }

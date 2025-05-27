@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Viewer - Telecom Analytics</title>
+    
+    <!-- Markdown Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --ey-yellow: #FFE600;
+            --ey-purple: #2E2A48;
+            --ey-dark-purple: #1F1B33;
+            --ey-navy: #0F1419;
+            --ey-light-gray: #E5E5E5;
+            --ey-white: #FFFFFF;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--ey-light-gray);
+            color: var(--ey-navy);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .header {
+            background: var(--ey-yellow);
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: var(--ey-navy);
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .report-content {
+            background: var(--ey-white);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        
+        /* Markdown Styling */
+        .report-content h1 {
+            color: var(--ey-purple);
+            border-bottom: 3px solid var(--ey-yellow);
+            padding-bottom: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .report-content h2 {
+            color: var(--ey-purple);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .report-content h3 {
+            color: var(--ey-dark-purple);
+            margin-top: 1.5rem;
+        }
+        
+        .report-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        .report-content th, 
+        .report-content td {
+            border: 1px solid var(--ey-light-gray);
+            padding: 0.75rem;
+            text-align: left;
+        }
+        
+        .report-content th {
+            background: var(--ey-light-gray);
+            font-weight: 600;
+        }
+        
+        .report-content code {
+            background: var(--ey-light-gray);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .report-content pre {
+            background: var(--ey-dark-purple);
+            color: var(--ey-white);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        
+        .report-content pre code {
+            background: transparent;
+            color: var(--ey-white);
+        }
+        
+        .report-content blockquote {
+            border-left: 4px solid var(--ey-yellow);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            color: #666;
+        }
+        
+        .report-content ul, 
+        .report-content ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+        
+        .report-content li {
+            margin: 0.5rem 0;
+        }
+        
+        .report-content hr {
+            border: none;
+            border-top: 2px solid var(--ey-light-gray);
+            margin: 2rem 0;
+        }
+        
+        .report-content strong {
+            color: var(--ey-purple);
+            font-weight: 600;
+        }
+        
+        .report-content em {
+            color: #666;
+        }
+        
+        .nav-buttons {
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .nav-button {
+            background: var(--ey-purple);
+            color: var(--ey-white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            background: var(--ey-dark-purple);
+            transform: translateY(-2px);
+        }
+        
+        .nav-button.active {
+            background: var(--ey-yellow);
+            color: var(--ey-navy);
+        }
+        
+        #loading {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+        
+        #error {
+            background: #fee;
+            border: 1px solid #fcc;
+            color: #c00;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Telecom Analytics Reports</h1>
+    </div>
+    
+    <div class="container">
+        <div class="nav-buttons">
+            <a href="#" class="nav-button" onclick="loadReport('EXECUTIVE_SUMMARY.md'); return false;">Executive Summary</a>
+            <a href="#" class="nav-button" onclick="loadReport('ROGERS_CX_TRANSFORMATION_FINAL_REPORT.md'); return false;">Full Strategic Report</a>
+            <a href="#" class="nav-button" onclick="loadReport('CX_UX_ASSESSMENT_REPORT.md'); return false;">CX/UX Assessment</a>
+            <a href="#" class="nav-button" onclick="loadReport('DATA_METHODOLOGY_AND_DERIVATIONS.md'); return false;">Data Methodology</a>
+            <a href="#" class="nav-button" onclick="loadReport('KEY_METRICS_QUICK_REFERENCE.md'); return false;">Quick Reference</a>
+            <a href="dashboard.html" class="nav-button">← Back to Dashboard</a>
+        </div>
+        
+        <div id="loading">Loading report...</div>
+        <div id="error"></div>
+        <div class="report-content" id="reportContent" style="display: none;"></div>
+    </div>
+    
+    <script>
+        // Load report from URL parameter or default
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const report = urlParams.get('report') || 'EXECUTIVE_SUMMARY.md';
+            loadReport(report);
+        };
+        
+        function loadReport(filename) {
+            // Update active button
+            document.querySelectorAll('.nav-button').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.includes(getReportTitle(filename))) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Show loading
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('reportContent').style.display = 'none';
+            
+            // Fetch the markdown file
+            fetch('../' + filename)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Report not found');
+                    }
+                    return response.text();
+                })
+                .then(markdown => {
+                    // Parse markdown to HTML
+                    const html = marked.parse(markdown);
+                    
+                    // Display the content
+                    document.getElementById('reportContent').innerHTML = html;
+                    document.getElementById('reportContent').style.display = 'block';
+                    document.getElementById('loading').style.display = 'none';
+                    
+                    // Update URL
+                    window.history.pushState({}, '', '?report=' + filename);
+                    
+                    // Scroll to top
+                    window.scrollTo(0, 0);
+                })
+                .catch(error => {
+                    document.getElementById('error').textContent = 'Error loading report: ' + error.message;
+                    document.getElementById('error').style.display = 'block';
+                    document.getElementById('loading').style.display = 'none';
+                });
+        }
+        
+        function getReportTitle(filename) {
+            const titles = {
+                'EXECUTIVE_SUMMARY.md': 'Executive Summary',
+                'ROGERS_CX_TRANSFORMATION_FINAL_REPORT.md': 'Full Strategic Report',
+                'CX_UX_ASSESSMENT_REPORT.md': 'CX/UX Assessment',
+                'DATA_METHODOLOGY_AND_DERIVATIONS.md': 'Data Methodology',
+                'KEY_METRICS_QUICK_REFERENCE.md': 'Quick Reference'
+            };
+            return titles[filename] || filename;
+        }
+    </script>
+</body>
+</html>

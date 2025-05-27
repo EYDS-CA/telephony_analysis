@@ -27,7 +27,8 @@ let currentFilters = {
     appFilter: 'all', 
     platformFilter: 'all',
     sentimentFilter: 'all',
-    categoryFilter: 'all'
+    categoryFilter: 'all',
+    searchFilter: ''
 };
 
 // Initialize dashboard
@@ -155,6 +156,17 @@ function applyDataFilters() {
         console.log(`   After date filter (${currentFilters.dateRange}): ${filtered.length} reviews`);
     }
     
+    // Apply search filter (search in review text only)
+    if (currentFilters.searchFilter && currentFilters.searchFilter.trim() !== '') {
+        const searchTerm = currentFilters.searchFilter.toLowerCase().trim();
+        filtered = filtered.filter(review => {
+            // Search only in the user review text
+            const reviewText = (review.text || '').toLowerCase();
+            return reviewText.includes(searchTerm);
+        });
+        console.log(`   After search filter ("${currentFilters.searchFilter}"): ${filtered.length} reviews`);
+    }
+    
     filteredData = filtered;
     console.log(`🔍 Final filtered result: ${filtered.length} reviews from ${DASHBOARD_DATA.all_reviews.length} total reviews`);
     
@@ -183,7 +195,8 @@ function updateKPIs() {
     const totalReviews = document.getElementById('totalReviews');
     if (totalReviews) {
         const isFiltered = currentFilters.appFilter !== 'all' || currentFilters.platformFilter !== 'all' || 
-                          currentFilters.sentimentFilter !== 'all' || currentFilters.categoryFilter !== 'all' || currentFilters.dateRange !== 'all';
+                          currentFilters.sentimentFilter !== 'all' || currentFilters.categoryFilter !== 'all' || 
+                          currentFilters.dateRange !== 'all' || (currentFilters.searchFilter && currentFilters.searchFilter.trim() !== '');
         
         if (isFiltered && filtered.length > 0) {
             totalReviews.textContent = `${filtered.length} filtered`;
@@ -1995,6 +2008,9 @@ function updateFilterStatus() {
     if (currentFilters.categoryFilter !== 'all') {
         activeFilters.push(`Category: ${currentFilters.categoryFilter}`);
     }
+    if (currentFilters.searchFilter && currentFilters.searchFilter.trim() !== '') {
+        activeFilters.push(`Search: "${currentFilters.searchFilter}"`);
+    }
     
     if (activeFilters.length > 0) {
         statusElement.textContent = `(Active: ${activeFilters.join(', ')})`;
@@ -2050,9 +2066,10 @@ function applyFilters() {
     const platformFilter = document.getElementById('platformFilter')?.value || 'all';
     const sentimentFilter = document.getElementById('sentimentFilter')?.value || 'all';
     const categoryFilter = document.getElementById('categoryFilter')?.value || 'all';
+    const searchFilter = document.getElementById('searchFilter')?.value || '';
     
     // Update current filters
-    currentFilters = { dateRange, appFilter, platformFilter, sentimentFilter, categoryFilter };
+    currentFilters = { dateRange, appFilter, platformFilter, sentimentFilter, categoryFilter, searchFilter };
     
     console.log('🎯 Filters applied:', currentFilters);
     
