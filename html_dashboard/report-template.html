@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Title | CX Insights Dashboard</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=EYInterstate:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- EY Report Styles -->
+    <link href="ey-report-styles.css" rel="stylesheet">
+    
+    <!-- Markdown Support (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <!-- Professional Header -->
+    <header class="header">
+        <div class="header-top">
+            <a href="dashboard.html" class="ey-logo">EY</a>
+            <div class="header-meta">Digital & Emerging Technologies</div>
+        </div>
+        <div class="header-main">
+            <h1 class="header-title">Report Title Here</h1>
+            <p class="header-subtitle">Brief description of the report content</p>
+        </div>
+    </header>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb">
+        <a href="dashboard.html">Dashboard</a>
+        <span>›</span>
+        <a href="dashboard.html#reports">Reports</a>
+        <span>›</span>
+        <span>Current Report</span>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="report-container">
+        <div class="report-section">
+            <div class="report-header">
+                <h1 class="report-title">Full Report Title</h1>
+                <p class="report-subtitle">Comprehensive subtitle explaining the report's purpose</p>
+            </div>
+            
+            <div class="report-content">
+                <!-- Executive Summary -->
+                <h2>Executive Summary</h2>
+                <div class="highlight-box">
+                    <p>
+                        <strong>Key Finding:</strong> Brief summary of the most important finding. 
+                        Use <span class="highlight-metric">highlighted metrics</span> to draw attention 
+                        to important numbers or percentages.
+                    </p>
+                </div>
+
+                <!-- Main Content Sections -->
+                <h2>Section Title</h2>
+                <p>
+                    Regular paragraph content goes here. The styling ensures optimal readability 
+                    with appropriate line height and spacing.
+                </p>
+
+                <h3>Subsection Title</h3>
+                <ul>
+                    <li>Bullet point one</li>
+                    <li>Bullet point two</li>
+                    <li>Bullet point three</li>
+                </ul>
+
+                <!-- Key Finding Box -->
+                <div class="key-finding">
+                    <div class="key-finding-title">Important Discovery</div>
+                    <div class="key-finding-content">
+                        Detailed explanation of a key finding or insight from the analysis.
+                    </div>
+                </div>
+
+                <!-- Table Example -->
+                <h3>Data Table Example</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Value</th>
+                            <th>Confidence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Total Reviews</td>
+                            <td>12,785</td>
+                            <td>100%</td>
+                        </tr>
+                        <tr>
+                            <td>Negative Sentiment</td>
+                            <td>60%</td>
+                            <td>95% CI: ±0.8%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Code Block Example -->
+                <h3>Calculation Example</h3>
+                <pre><code>Success Rate = Positive Reviews / Total Reviews
+Success Rate = 99 / 1,290 = 7.7%</code></pre>
+
+                <!-- Blockquote Example -->
+                <blockquote>
+                    "Build a banking app that pays telecom bills" - The winning strategy for 
+                    telecom providers focused on reliability over design.
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <nav class="footer-nav">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="executive_summary.html">Executive Summary</a>
+            <a href="rogers_cx_transformation_report.html">CX Transformation</a>
+            <a href="methodology.html">Methodology</a>
+        </nav>
+        <p>&copy; 2024 EY. All rights reserved.</p>
+    </footer>
+
+    <!-- Back to Dashboard Button -->
+    <a href="dashboard.html" class="back-to-dashboard">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </a>
+
+    <!-- Optional: Markdown Rendering Script -->
+    <script>
+        // If you want to render markdown content dynamically
+        document.addEventListener('DOMContentLoaded', function() {
+            const markdownContent = document.querySelector('.markdown-content');
+            if (markdownContent && typeof marked !== 'undefined') {
+                markdownContent.innerHTML = marked.parse(markdownContent.textContent);
+            }
+        });
+    </script>
+</body>
+</html>

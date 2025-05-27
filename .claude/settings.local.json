@@ -26,7 +26,8 @@
       "Bash(python:*)",
       "Bash(head:*)",
       "Bash(wc:*)",
-      "Bash(file:*)"
+      "Bash(file:*)",
+      "Bash(git init:*)"
     ],
     "deny": []
   }
