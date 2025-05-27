@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Large data files (optional - remove if you want to include them)
+# *.csv
+
+# Keep only production-ready HTML files
+*_updated.html
+dashboard_fixed.html
+dashboard_standalone.html
+
+# Analysis scripts (optional - remove if you want to include them)
+# *.py

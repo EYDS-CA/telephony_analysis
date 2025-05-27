@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Guide | CX Insights Dashboard</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=EYInterstate:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- EY Report Styles -->
+    <link href="ey-report-styles.css" rel="stylesheet">
+    
+    <style>
+        .guide-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .guide-table th {
+            background: var(--ey-black);
+            color: var(--ey-white);
+            padding: 1.5rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .guide-table td {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--ey-gray-light);
+            vertical-align: top;
+        }
+        
+        .guide-table tr:hover {
+            background: var(--ey-gray-light);
+        }
+        
+        .report-name {
+            font-weight: 600;
+            color: var(--ey-blue);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .report-purpose {
+            color: var(--ey-gray-dark);
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+        
+        .key-content {
+            background: var(--ey-gray-light);
+            padding: 0.75rem;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .audience-tag {
+            display: inline-block;
+            background: var(--ey-yellow);
+            color: var(--ey-black);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        
+        .quick-nav {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .quick-nav a {
+            background: var(--ey-blue);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .quick-nav a:hover {
+            background: var(--ey-black);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Professional Header -->
+    <header class="header">
+        <div class="header-top">
+            <a href="dashboard.html" class="ey-logo">EY</a>
+            <div class="header-meta">Digital & Emerging Technologies</div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb">
+        <a href="dashboard.html">Dashboard</a>
+        <span>›</span>
+        <a href="dashboard.html#reports">Reports</a>
+        <span>›</span>
+        <span>Report Guide</span>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="report-container">
+        <div class="report-section">
+            <div class="report-header">
+                <h1 class="report-title">CX Analysis Report Guide</h1>
+                <p class="report-subtitle">Navigate our comprehensive analysis with this quick reference guide</p>
+            </div>
+            
+            <div class="report-content">
+                <h2>Quick Navigation</h2>
+                <div class="quick-nav">
+                    <a href="executive_summary.html">Executive Overview</a>
+                    <a href="rogers_cx_transformation_report.html">Strategic Recommendations</a>
+                    <a href="cx_ux_assessment_report.html">CX/UX Assessment</a>
+                    <a href="key_metrics_reference.html">Key Metrics</a>
+                    <a href="dashboard.html">Interactive Dashboard</a>
+                </div>
+                
+                <h2>Report Contents Guide</h2>
+                <table class="guide-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%">Report</th>
+                            <th style="width: 45%">Purpose & Content</th>
+                            <th style="width: 30%">Key Insights</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="report-name">Executive Summary</div>
+                                <a href="executive_summary.html" style="color: var(--ey-blue); font-size: 0.875rem;">View Report →</a>
+                            </td>
+                            <td>
+                                <div class="report-purpose">
+                                    High-level overview of the entire analysis. Presents the telecom app hierarchy of needs and why Bell's design advantage is meaningless without core function reliability.
+                                </div>
+                                <div class="audience-tag">C-Suite / Strategic</div>
+                            </td>
+                            <td>
+                                <div class="key-content">
+                                    • 60% negative sentiment in reviews<br>
+                                    • 94.9% technical issues are negative<br>
+                                    • "Banking app" strategy wins<br>
+                                    • Core reliability > UI design
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                <div class="report-name">Rogers CX Transformation</div>
+                                <a href="rogers_cx_transformation_report.html" style="color: var(--ey-blue); font-size: 0.875rem;">View Report →</a>
+                            </td>
+                            <td>
+                                <div class="report-purpose">
+                                    Strategic roadmap for Rogers to transform from reactive complaint management to proactive edge case mastery. Includes prioritized recommendations and implementation guidance.
+                                </div>
+                                <div class="audience-tag">Strategy / Product</div>
+                            </td>
+                            <td>
+                                <div class="key-content">
+                                    • Edge case mastery strategy<br>
+                                    • Platform crisis (iOS 84.2% negative)<br>
+                                    • CCTS prevention opportunity<br>
+                                    • Banking app standards needed
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                <div class="report-name">CX/UX Assessment</div>
+                                <a href="cx_ux_assessment_report.html" style="color: var(--ey-blue); font-size: 0.875rem;">View Report →</a>
+                            </td>
+                            <td>
+                                <div class="report-purpose">
+                                    Detailed evaluation of Rogers vs Bell apps against CX/UX principles. Reveals how app failures are symptoms of deeper journey orchestration issues, not UI problems.
+                                </div>
+                                <div class="audience-tag">UX / Product Teams</div>
+                            </td>
+                            <td>
+                                <div class="key-content">
+                                    • Journey failures drive CCTS<br>
+                                    • Bell: 8x fewer chatbot complaints<br>
+                                    • 12% forced channel switching<br>
+                                    • Context preservation critical
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                <div class="report-name">Bell's Smart CX Decisions</div>
+                                <a href="bell_smart_cx_report.html" style="color: var(--ey-blue); font-size: 0.875rem;">View Report →</a>
+                            </td>
+                            <td>
+                                <div class="report-purpose">
+                                    Visual analysis revealing how Bell generates 8x fewer chatbot complaints through three deliberate UX decisions that acknowledge users' emotional state.
+                                </div>
+                                <div class="audience-tag">Design / CX Teams</div>
+                            </td>
+                            <td>
+                                <div class="key-content">
+                                    • Hidden complexity (3 taps to human)<br>
+                                    • Priority hierarchy in UI<br>
+                                    • Payment transparency<br>
+                                    • Emotional state recognition
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                <div class="report-name">Key Metrics Reference</div>
+                                <a href="key_metrics_reference.html" style="color: var(--ey-blue); font-size: 0.875rem;">View Report →</a>
+                            </td>
+                            <td>
+                                <div class="report-purpose">
+                                    Quick reference for all verified metrics with confidence intervals. Essential for presentations and ensuring accuracy when citing findings.
+                                </div>
+                                <div class="audience-tag">All Audiences</div>
+                            </td>
+                            <td>
+                                <div class="key-content">
+                                    • All metrics with CI calculations<br>
+                                    • CCTS breakdown by provider<br>
+                                    • Platform performance gap<br>
+                                    • Verification status indicators
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                <div class="report-name">Metrics Calculations</div>
+                                <a href="metrics_calculations_verification.html" style="color: var(--ey-blue); font-size: 0.875rem;">View Report →</a>
+                            </td>
+                            <td>
+                                <div class="report-purpose">
+                                    Transparency document showing exactly how every metric was calculated. Includes verification status and identifies which claims need citations.
+                                </div>
+                                <div class="audience-tag">Technical / Analytics</div>
+                            </td>
+                            <td>
+                                <div class="key-content">
+                                    • Step-by-step calculations<br>
+                                    • Confidence interval formulas<br>
+                                    • Data quality notes<br>
+                                    • Citation requirements
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                <div class="report-name">Research Process</div>
+                                <a href="research_process_approach.html" style="color: var(--ey-blue); font-size: 0.875rem;">View Report →</a>
+                            </td>
+                            <td>
+                                <div class="report-purpose">
+                                    Comprehensive methodology explaining data collection (30,000+ reviews), AI analysis approach, CCTS integration, and quality assurance processes.
+                                </div>
+                                <div class="audience-tag">Research / Technical</div>
+                            </td>
+                            <td>
+                                <div class="key-content">
+                                    • 12,785 reviews analyzed<br>
+                                    • Individual AI categorization<br>
+                                    • 15,913 CCTS validation<br>
+                                    • Statistical significance testing
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h2>Reading Recommendations by Role</h2>
+                
+                <div class="callout-box" style="background: var(--ey-yellow); margin: 2rem 0;">
+                    <h3 style="margin-top: 0;">For Executives</h3>
+                    <p><strong>Start with:</strong> Executive Summary → Rogers CX Transformation → Key Metrics Reference</p>
+                    <p><strong>Focus on:</strong> Strategic opportunity, competitive positioning, and ROI potential</p>
+                </div>
+                
+                <div class="callout-box" style="background: var(--ey-blue); color: white; margin: 2rem 0;">
+                    <h3 style="margin-top: 0;">For Product Teams</h3>
+                    <p><strong>Start with:</strong> CX/UX Assessment → Bell's Smart CX → Rogers CX Transformation</p>
+                    <p><strong>Focus on:</strong> Specific UX patterns, journey failures, and implementation priorities</p>
+                </div>
+                
+                <div class="callout-box" style="background: var(--ey-green); color: white; margin: 2rem 0;">
+                    <h3 style="margin-top: 0;">For Technical Teams</h3>
+                    <p><strong>Start with:</strong> Metrics Calculations → Research Process → Interactive Dashboard</p>
+                    <p><strong>Focus on:</strong> Data methodology, statistical validation, and platform-specific insights</p>
+                </div>
+                
+                <h2>Key Takeaway</h2>
+                <p style="font-size: 1.125rem; line-height: 1.8; margin-top: 2rem;">
+                    Our analysis of 12,785 app reviews reveals a fundamental truth: <strong>success in telecom apps isn't about beautiful UI—it's about bulletproof core functions</strong>. The data shows both Rogers and Bell score identically (2.64/5) despite Bell's superior design, proving that the winning formula is to build a "banking app that pays telecom bills" with absolute reliability for authentication, payments, and technical stability.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <nav class="footer-nav">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="executive_summary.html">Executive Summary</a>
+            <a href="rogers_cx_transformation_report.html">CX Transformation</a>
+            <a href="research_process_approach.html">Methodology</a>
+        </nav>
+        <p>&copy; 2024 EY. All rights reserved.</p>
+    </footer>
+
+    <!-- Back to Dashboard Button -->
+    <a href="dashboard.html" class="back-to-dashboard">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </a>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(source:*)",
+      "Bash(pip install:*)",
+      "Bash(python:*)",
+      "Bash(pip3 install:*)",
+      "Bash(mkdir:*)",
+      "Bash(ls:*)",
+      "Bash(rm:*)",
+      "Bash(grep:*)",
+      "Bash(open dashboard.html)",
+      "Bash(grep:*)",
+      "Bash(python analyze_reviews.py)",
+      "Bash(python3:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(open dashboard.html)",
+      "Bash(find:*)",
+      "Bash(rm:*)",
+      "Bash(ls:*)",
+      "Bash(awk:*)",
+      "Bash(pip3 install:*)",
+      "Bash(source:*)",
+      "Bash(python:*)",
+      "Bash(head:*)",
+      "Bash(wc:*)",
+      "Bash(file:*)",
+      "Bash(git init:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(git checkout:*)",
+      "Bash(mv:*)",
+      "Bash(cp:*)",
+      "Bash(sed:*)"
+    ],
+    "deny": []
+  }
+}
