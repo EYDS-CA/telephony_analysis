@@ -33,7 +33,20 @@
       "Bash(git checkout:*)",
       "Bash(mv:*)",
       "Bash(cp:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "WebFetch(domain:play.google.com)",
+      "WebFetch(domain:apps.apple.com)",
+      "Bash(open html_dashboard/dashboard.html)",
+      "Bash(timeout:*)",
+      "Bash(rg:*)",
+      "Bash(open:*)",
+      "Bash(node:*)",
+      "Bash(cut:*)",
+      "Bash(docker container prune:*)",
+      "Bash(docker system prune:*)",
+      "Bash(kill:*)",
+      "Bash(osascript:*)",
+      "Bash(docker:*)"
     ],
     "deny": []
   }

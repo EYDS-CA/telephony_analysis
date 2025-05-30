@@ -17,12 +17,15 @@
 
     <!-- EY Report Styles -->
     <link href="ey-report-styles.css" rel="stylesheet" />
+    
+    <!-- Shared Navigation -->
+    <script src="shared-navigation.js"></script>
   </head>
   <body>
     <!-- Professional Header -->
     <header class="header">
       <div class="header-top">
-        <a href="dashboard.html" class="ey-logo">EY</a>
+        <a href="dashboard.html?tab=reports" class="ey-logo"></a>
         <div class="header-meta">Digital & Emerging Technologies</div>
       </div>
       <div class="header-main">
@@ -31,14 +34,7 @@
       </div>
     </header>
 
-    <!-- Breadcrumb Navigation -->
-    <nav class="breadcrumb">
-      <a href="dashboard.html">Dashboard</a>
-      <span>›</span>
-      <a href="dashboard.html#reports">Reports</a>
-      <span>›</span>
-      <span>Bell CX Analysis</span>
-    </nav>
+    <!-- Navigation will be inserted here by shared-navigation.js -->
 
     <!-- Main Content -->
     <div class="report-container">
@@ -378,12 +374,12 @@
         <a href="rogers_cx_transformation_report.html">CX Transformation</a>
         <a href="research_process_approach.html">Methodology</a>
       </nav>
-      <p>&copy; 2024 EY. All rights reserved.</p>
+      <p>&copy; 2025 EY Canada. All rights reserved.</p>
     </footer>
 
     <!-- Back to Dashboard Button -->
-    <a href="dashboard.html" class="back-to-dashboard">
-      <i class="fas fa-arrow-left"></i> Back to Dashboard
+    <a href="dashboard.html?tab=reports" class="back-to-dashboard">
+      <i class="fas fa-arrow-left"></i> Back to Reports
     </a>
   </body>
 </html>

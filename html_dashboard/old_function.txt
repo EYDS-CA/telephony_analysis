@@ -1,0 +1,112 @@
+function createCategoryChart() {
+    console.log('🎯 Creating category chart...');
+    const filtered = applyDataFilters();
+    
+    // Calculate category distribution from filtered data
+    const categoryCounts = filtered.reduce((acc, review) => {
+        const category = review.primary_category || 'Unknown';
+        // Filter out empty categories and obvious errors
+        if (category && category.trim() !== '' && category.length > 2 && !category.match(/^[\d.-]+$/)) {
+            acc[category] = (acc[category] || 0) + 1;
+        }
+        return acc;
+    }, {});
+    
+    console.log('📊 Category counts from filtered data:', categoryCounts);
+    console.log('📊 Available summary data:', DASHBOARD_DATA.summary);
+    
+    // Use filtered data if available, otherwise full summary
+    const data = (DASHBOARD_DATA.summary.final_category_distribution || DASHBOARD_DATA.summary.category_distribution || categoryCounts);
+    
+    console.log('📊 Final data for chart:', data);
+    
+    if (!data || Object.keys(data).length === 0) {
+        console.error('❌ No category data available for chart');
+        return;
+    }
+    
+    // Sort all entries and prepare for visualization
+    const allEntries = Object.entries(data).sort(([,a], [,b]) => b - a);
+    console.log('📊 Sorted entries for chart:', allEntries.slice(0, 5));
+    
+    // Create a treemap for better visualization of all categories
+    const treemapData = [{
+        type: 'treemap',
+        labels: allEntries.map(([name]) => name),
+        parents: allEntries.map(() => ''),
+        values: allEntries.map(([,count]) => count),
+        textinfo: 'label+value+percent parent',
+        marker: {
+            colorscale: [
+                [0, '#FFE600'],
+                [0.2, '#FF9500'],
+                [0.4, '#FF0040'],
+                [0.6, '#2E2A48'],
+                [0.8, '#0F1419'],
+                [1, '#6B5B95']
+            ],
+            colorbar: {
+                title: 'Reviews',
+                titleside: 'right'
+            }
+        },
+        hovertemplate: '<b>%{label}</b><br>Reviews: %{value}<br>%{percentParent}<extra></extra>'
+    }];
+    
+    const treemapLayout = {
+        margin: { t: 40, b: 10, l: 10, r: 10 },
+        font: { family: 'Inter, sans-serif' },
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        height: 600
+    };
+    
+    // Create treemap for Issue Category Analysis
+    const chartElement = document.getElementById('topIssuesChart');
+    console.log('📊 Chart element found:', !!chartElement);
+    
+    if (chartElement) {
+        console.log('📊 About to create Plotly chart with data:', treemapData);
+        console.log('📊 Chart layout:', treemapLayout);
+        
+        Plotly.newPlot('topIssuesChart', treemapData, treemapLayout, chartConfig).then(() => {
+            console.log('✅ Category chart created successfully');
+        }).catch((error) => {
+            console.error('❌ Error creating category chart:', error);
+        });
+    }
+    
+    // Create horizontal bar chart for critical issues (top 15)
+    const topEntries = allEntries.slice(0, 15);
+    const barData = [{
+        y: topEntries.map(([name]) => name).reverse(),
+        x: topEntries.map(([,count]) => count).reverse(),
+        type: 'bar',
+        orientation: 'h',
+        marker: { 
+            color: topEntries.map((_, i) => {
+                const colors = ['#FF0040', '#FF0040', '#FF0040', '#FF9500', '#FF9500', 
+                               '#FFE600', '#FFE600', '#FFE600', '#2E2A48', '#2E2A48',
+                               '#6B5B95', '#6B5B95', '#6B5B95', '#6B5B95', '#6B5B95'];
+                return colors[topEntries.length - 1 - i];
+            })
+        },
+        text: topEntries.map(([,count]) => count.toLocaleString()).reverse(),
+        textposition: 'outside',
+        hovertemplate: '<b>%{y}</b><br>Count: %{x}<extra></extra>'
+    }];
+    
+    const barLayout = {
+        margin: { t: 40, b: 60, l: 180, r: 100 },
+        xaxis: { title: 'Number of Reviews' },
+        font: { family: 'Inter, sans-serif' },
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        height: 500
+    };
+    
+    // Create bar chart for critical issues
+    if (document.getElementById('criticalIssuesChart')) {
+        Plotly.newPlot('criticalIssuesChart', barData, barLayout, chartConfig);
+    }
+}

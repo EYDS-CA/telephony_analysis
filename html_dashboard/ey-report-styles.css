@@ -15,6 +15,20 @@
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
     --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+    
+    /* Rogers Brand Colors */
+    --rogers-red: #E20A16;
+    --rogers-red-dark: #C40914;
+    --rogers-red-light: #FF4550;
+    --rogers-black: #000000;
+    --rogers-gray: #6C757D;
+    --rogers-blue: #004A9F;
+    
+    /* Bell Brand Colors */
+    --bell-blue: #0066CC;
+    --bell-blue-dark: #004499;
+    --bell-blue-light: #3388FF;
+    --bell-gray: #545454;
 }
 
 * {
@@ -54,10 +68,17 @@ body {
     letter-spacing: -0.05em;
     text-decoration: none;
     color: var(--ey-white);
+    display: inline-block;
 }
 
 .ey-logo:hover {
     color: var(--ey-yellow);
+    text-decoration: none;
+}
+
+.ey-logo::after {
+    content: '';
+    font-weight: 700;
 }
 
 .header-meta {
@@ -68,6 +89,7 @@ body {
 .header-main {
     padding: 2rem;
     background: var(--ey-white);
+    text-align: center;
 }
 
 .header-title {
@@ -82,6 +104,56 @@ body {
     font-size: 1.125rem;
     color: var(--ey-gray-dark);
     margin-bottom: 2rem;
+}
+
+/* Navigation */
+.nav-container {
+    background: var(--ey-white);
+    border-bottom: 1px solid var(--ey-gray-medium);
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-tabs {
+    display: flex;
+    gap: 2rem;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.nav-tab {
+    padding: 1.25rem 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ey-gray-dark);
+    position: relative;
+    transition: color 0.2s;
+    font-family: 'Inter', 'EYInterstate', -apple-system, sans-serif;
+}
+
+.nav-tab:hover {
+    color: var(--ey-black);
+}
+
+.nav-tab.active {
+    color: var(--ey-black);
+    font-weight: 600;
+}
+
+.nav-tab.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--ey-yellow);
 }
 
 /* Breadcrumb Navigation */
@@ -384,8 +456,106 @@ body {
     }
 }
 
+/* Additional styles for reports */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.stat-card {
+    background: var(--ey-gray-light);
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--ey-black);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--ey-gray-dark);
+}
+
+.callout-box {
+    background: linear-gradient(135deg, var(--ey-gray-light) 0%, var(--ey-white) 100%);
+    border-left: 4px solid var(--ey-yellow);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 4px;
+    box-shadow: var(--shadow-sm);
+}
+
+.code-block {
+    background: var(--ey-gray-light);
+    padding: 1rem;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.875rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+}
+
+.metric-card {
+    background: var(--ey-white);
+    border: 1px solid var(--ey-gray-light);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.metric-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--ey-black);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.phase-card {
+    background: var(--ey-gray-light);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+}
+
+.phase-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--ey-black);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
+    .nav-tabs {
+        gap: 1rem;
+        font-size: 0.875rem;
+        overflow-x: auto;
+        padding: 0 1rem;
+    }
+    
+    .nav-tab {
+        padding: 1rem 0;
+        font-size: 0.875rem;
+        white-space: nowrap;
+    }
+    
+    .nav-container {
+        padding: 0 1rem;
+    }
     .header-title {
         font-size: 1.75rem;
     }
@@ -410,4 +580,189 @@ body {
         flex-direction: column;
         gap: 0.5rem;
     }
+}
+
+/* Fix for navigation tab visibility */
+.nav-tabs::-webkit-scrollbar {
+    height: 4px;
+}
+
+/* Rogers Brand Styling */
+.rogers-branded {
+    border-left: 4px solid var(--rogers-red);
+    position: relative;
+}
+
+.rogers-branded::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--rogers-red) 0%, var(--rogers-red-light) 100%);
+}
+
+.rogers-branded .card-title {
+    color: var(--rogers-red-dark);
+}
+
+.rogers-branded .highlight-metric {
+    color: var(--rogers-red);
+    background: rgba(226, 10, 22, 0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: 600;
+}
+
+.rogers-report-header {
+    background: linear-gradient(135deg, var(--rogers-red), var(--rogers-red-dark));
+    color: var(--ey-white);
+    padding: 3rem 2rem;
+    text-align: center;
+    margin: -2rem -2rem 2rem -2rem;
+    border-radius: 8px 8px 0 0;
+}
+
+.rogers-report-header .report-title {
+    color: var(--ey-white);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.rogers-report-header .report-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.25rem;
+    font-weight: 300;
+}
+
+.rogers-insight-box {
+    border-left: 4px solid var(--rogers-red);
+    background: linear-gradient(135deg, 
+        rgba(226, 10, 22, 0.05) 0%, 
+        rgba(226, 10, 22, 0.02) 100%);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.rogers-insight-box .insight-title {
+    color: var(--rogers-red-dark);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+}
+
+.rogers-button {
+    background: var(--rogers-red);
+    color: var(--ey-white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.rogers-button:hover {
+    background: var(--rogers-red-dark);
+    color: var(--ey-white);
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(226, 10, 22, 0.3);
+}
+
+/* Bell Brand Styling (matching Rogers structure) - Updated */
+.bell-branded {
+    border-left: 4px solid var(--bell-blue) !important;
+    position: relative !important;
+}
+
+.bell-branded::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 2px !important;
+    background: linear-gradient(90deg, var(--bell-blue) 0%, var(--bell-blue-light) 100%) !important;
+}
+
+.bell-branded .card-title {
+    color: var(--bell-blue-dark);
+}
+
+.bell-branded .highlight-metric {
+    color: var(--bell-blue);
+    background: rgba(0, 102, 204, 0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: 600;
+}
+
+/* Enhanced styling for Rogers when selected */
+.card.rogers-selected {
+    border: 2px solid var(--rogers-red);
+    box-shadow: 0 8px 24px rgba(226, 10, 22, 0.15);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+.card.bell-selected {
+    border: 2px solid var(--bell-blue);
+    box-shadow: 0 8px 24px rgba(0, 102, 204, 0.15);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+/* Segmented control Rogers styling */
+.segmented-option[data-value="rogers"].active {
+    background: var(--rogers-red);
+    color: var(--ey-white);
+}
+
+.segmented-option[data-value="bell"].active {
+    background: var(--bell-blue);
+    color: var(--ey-white);
+}
+
+/* Rogers specific highlights in reports */
+.rogers-highlight {
+    background: linear-gradient(120deg, transparent 0%, rgba(226, 10, 22, 0.1) 50%, transparent 100%);
+    padding: 0.5rem;
+    border-radius: 4px;
+    border-left: 3px solid var(--rogers-red);
+    margin: 1rem 0;
+}
+
+.rogers-stat {
+    background: var(--rogers-red);
+    color: var(--ey-white);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 700;
+    display: inline-block;
+    margin: 0.25rem;
+}
+
+.rogers-recommendation {
+    background: rgba(226, 10, 22, 0.05);
+    border: 1px solid rgba(226, 10, 22, 0.2);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+}
+
+.rogers-recommendation h3 {
+    color: var(--rogers-red-dark);
+    margin-bottom: 1rem;
+}
+
+.rogers-recommendation h4 {
+    color: var(--rogers-red);
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
 }

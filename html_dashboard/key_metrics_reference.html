@@ -9,7 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=EYInterstate:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
-    <!-- Shared Dashboard Styles -->
+    <!-- EY Report Styles -->
+    <link href="ey-report-styles.css" rel="stylesheet">
+    
+    <!-- Shared Navigation -->
+    <script src="shared-navigation.js"></script>
+    
+    <!-- Remove inline styles since we're using ey-report-styles.css -->
     <style>
         /* EY Brand Colors */
         :root {
@@ -263,26 +269,29 @@
 </head>
 
 <body>
-    <!-- Header -->
+    <!-- Professional Header -->
     <header class="header">
         <div class="header-top">
-            <div class="ey-logo">EY</div>
+            <a href="dashboard.html?tab=reports" class="ey-logo"></a>
             <div class="header-meta">Digital & Emerging Technologies</div>
         </div>
-        <a href="dashboard.html" class="back-nav">
-            <i class="fas fa-arrow-left"></i>
-            Back to Dashboard
-        </a>
+        <div class="header-main">
+            <h1 class="header-title">Key Metrics Quick Reference</h1>
+            <p class="header-subtitle">All verified metrics at a glance</p>
+        </div>
     </header>
 
-    <!-- Report Container -->
-    <div class="report-container">
-        <div class="report-header">
-            <h1 class="report-title">Key Metrics Quick Reference</h1>
-            <p class="report-subtitle">All verified metrics at a glance</p>
-        </div>
+    <!-- Navigation will be inserted here by shared-navigation.js -->
 
-        <div class="report-content">
+    <!-- Main Content -->
+    <div class="report-container">
+        <div class="report-section">
+            <div class="report-header">
+                <h1 class="report-title">Key Metrics Quick Reference</h1>
+                <p class="report-subtitle">Core metrics, calculations, and confidence intervals</p>
+            </div>
+            
+            <div class="report-content">
             <h2>Core Dataset</h2>
             <ul>
                 <li><strong>12,785</strong> total app reviews analyzed</li>
@@ -469,7 +478,24 @@ Negative rate: 1,665 ÷ 2,377 = 70.0%</code></pre>
                 
                 <p><strong>For Business Decisions</strong>: Focus on fixing the breaking points that drive these extreme negative experiences, as they directly correlate with CCTS complaint escalations.</p>
             </blockquote>
+            </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <nav class="footer-nav">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="executive_summary.html">Executive Summary</a>
+            <a href="rogers_cx_transformation_report.html">CX Transformation</a>
+            <a href="research_process_approach.html">Methodology</a>
+        </nav>
+        <p>&copy; 2025 EY Canada. All rights reserved.</p>
+    </footer>
+
+    <!-- Back to Dashboard Button -->
+    <a href="dashboard.html?tab=reports" class="back-to-dashboard">
+        <i class="fas fa-arrow-left"></i> Back to Reports
+    </a>
 </body>
 </html>

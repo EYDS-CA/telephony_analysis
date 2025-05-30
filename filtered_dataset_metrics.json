@@ -1,0 +1,23 @@
+{
+  "total_reviews": 10103,
+  "android_reviews": 9069,
+  "ios_reviews": 1034,
+  "rogers_reviews": 7055,
+  "bell_reviews": 3048,
+  "average_rating": 2.58,
+  "data_currency": 99.6,
+  "date_range_start": "2020-01-01",
+  "date_range_end": "2025-05-27",
+  "android_percentage": 89.8,
+  "ios_percentage": 10.2,
+  "rogers_percentage": 69.8,
+  "bell_percentage": 30.2,
+  "negative_reviews": 6148,
+  "negative_percentage": 60.9,
+  "positive_reviews": 3089,
+  "positive_percentage": 30.6,
+  "neutral_reviews": 513,
+  "neutral_percentage": 5.1,
+  "mixed_reviews": 245,
+  "mixed_percentage": 2.4
+}
